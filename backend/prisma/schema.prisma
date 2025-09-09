@@ -1,0 +1,205 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+}
+
+/**
+ * ===== Enums =====
+ */
+enum Role {
+  ADMIN
+  MANAGER
+  USER
+}
+
+enum StatusTarefa {
+  ABERTA
+  EM_ANDAMENTO
+  CONCLUIDA
+  CANCELADA
+}
+
+enum Prioridade {
+  BAIXA
+  MEDIA
+  ALTA
+  CRITICA
+}
+
+enum Sexo {
+  M
+  F
+  OUTRO
+}
+
+/**
+ * ===== Modelos =====
+ */
+model Usuario {
+  id            Int      @id @default(autoincrement())
+  nome          String
+  email         String   @unique
+  senha_hash    String
+  role          Role     @default(USER)
+  criado_em     DateTime @default(now())
+  atualizado_em DateTime @updatedAt
+
+  contatos              Contato[]
+  acoes                 Acao[]
+  tarefas               Tarefa[]
+  coordenadas_bairros   CoordenadaBairro[]
+  registros_financeiros RegistroFinanceiro[]
+  user_permissions      UserPermission[]
+  user_access_logs      UserAccessLog[]
+
+  @@index([nome])
+  @@map("usuarios")
+}
+
+model Contato {
+  id            Int      @id @default(autoincrement())
+  usuario_id    Int
+  nome_completo String
+  idade         Int?
+  sexo          Sexo?
+  email         String?
+  celular       String?
+  endereco      String?
+  escolaridade  String?
+  assessor      String?
+  assunto       String?
+  observacao    String?
+  cidade        String?
+  bairro        String?
+  tag           String?
+  tag_equipe    String?
+  latitude      Float?
+  longitude     Float?
+  criado_em     DateTime @default(now())
+  atualizado_em DateTime @updatedAt
+
+  usuario Usuario  @relation(fields: [usuario_id], references: [id], onDelete: Cascade)
+  tarefas Tarefa[]
+  Acao    Acao[]
+
+  @@index([usuario_id])
+  @@index([cidade, bairro])
+  @@map("contatos")
+}
+
+model Acao {
+  id            Int       @id @default(autoincrement())
+  usuario_id    Int
+  titulo        String
+  descricao     String?
+  tipo          String?
+  data          DateTime?
+  cidade        String?
+  bairro        String?
+  latitude      Float?
+  longitude     Float?
+  criado_em     DateTime  @default(now())
+  atualizado_em DateTime  @updatedAt
+
+  usuario Usuario @relation(fields: [usuario_id], references: [id], onDelete: Cascade)
+
+  contato_id Int?
+  contato    Contato? @relation(fields: [contato_id], references: [id], onDelete: SetNull)
+
+  @@index([usuario_id])
+  @@index([contato_id])
+  @@map("acoes")
+}
+
+model CoordenadaBairro {
+  id            Int      @id @default(autoincrement())
+  usuario_id    Int
+  cidade        String
+  bairro        String
+  latitude      Float
+  longitude     Float
+  criado_em     DateTime @default(now())
+  atualizado_em DateTime @updatedAt
+
+  usuario Usuario @relation(fields: [usuario_id], references: [id], onDelete: Cascade)
+
+  @@index([usuario_id])
+  @@index([cidade, bairro])
+  @@map("coordenadas_bairros")
+}
+
+model RegistroFinanceiro {
+  id            Int      @id @default(autoincrement())
+  usuario_id    Int
+  data          DateTime
+  descricao     String?
+  tipo          String
+  categoria     String?
+  valor         Decimal  @db.Decimal(12, 2)
+  criado_em     DateTime @default(now())
+  atualizado_em DateTime @updatedAt
+
+  usuario Usuario @relation(fields: [usuario_id], references: [id], onDelete: Cascade)
+
+  @@index([usuario_id, data])
+  @@map("registros_financeiros")
+}
+
+model UserPermission {
+  id            Int      @id @default(autoincrement())
+  usuario_id    Int
+  pagina        String
+  has_access    Boolean  @default(false)
+  criado_em     DateTime @default(now())
+  atualizado_em DateTime @updatedAt
+
+  usuario Usuario @relation(fields: [usuario_id], references: [id], onDelete: Cascade)
+
+  @@unique([usuario_id, pagina])
+  @@index([usuario_id])
+  @@map("user_permissions")
+}
+
+model UserAccessLog {
+  id              Int      @id @default(autoincrement())
+  usuario_id      Int
+  pagina_acessada String
+  tipo_acesso     String?
+  criado_em       DateTime @default(now())
+
+  usuario Usuario @relation(fields: [usuario_id], references: [id], onDelete: Cascade)
+
+  @@index([usuario_id, criado_em])
+  @@map("user_access_logs")
+}
+
+model Tarefa {
+  id            Int          @id @default(autoincrement())
+  usuario_id    Int
+  titulo        String
+  descricao     String?
+  datas         DateTime?
+  responsavel   String?
+  prioridade    Prioridade?
+  status        StatusTarefa @default(ABERTA)
+  categorias    String[] // text[] no Postgres
+  cidade        String?
+  bairro        String?
+  latitude      Float?
+  longitude     Float?
+  contato_id    Int?
+  criado_em     DateTime     @default(now())
+  atualizado_em DateTime     @updatedAt
+
+  usuario Usuario  @relation(fields: [usuario_id], references: [id], onDelete: Cascade)
+  contato Contato? @relation(fields: [contato_id], references: [id], onDelete: SetNull)
+
+  @@index([usuario_id])
+  @@index([contato_id])
+  @@index([status, prioridade])
+  @@map("tarefas")
+}

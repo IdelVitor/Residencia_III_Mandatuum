@@ -1,98 +1,162 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Backend + Prisma + PostgreSQL (DEV) — sem Shadow DB
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Este backend usa **Prisma ORM** com **PostgreSQL**.  
+Abaixo, duas formas de rodar o banco:
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+- **Opção A:** Postgres via **Docker Compose**
+- **Opção B:** Postgres **instalado na máquina**
 
-## Description
+> **Importante:** não usamos `shadowDatabaseUrl`. As migrações funcionam normalmente sem shadow DB.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+---
 
-## Project setup
+## 0) Requisitos
 
-```bash
-$ npm install
+- Node.js 18+ (ou 20+)
+- npm
+- **Escolha 1:**
+  - Docker Desktop (se usar **Opção A**), **ou**
+  - PostgreSQL 14+ instalado (se usar **Opção B**)
+
+---
+
+## 1) Configuração do Prisma (comum às duas opções)
+
+### 1.1 `backend/prisma/schema.prisma`
+```prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL") // sem shadowDatabaseUrl
+}
 ```
 
-## Compile and run the project
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+### 1.2 `backend/.env` (use **URL literal**, sem `${VAR}`)
+```env
+DATABASE_URL="postgresql://SEU_USER:SUA_SENHA@SEU_HOST:5432/SEU_DB?schema=public"
 ```
 
-## Run tests
+Exemplos de `DATABASE_URL` prontos:
+- **Docker (porta mapeada):**  
+  `postgresql://sedem_user:sedem_pass@localhost:5432/sedem_db?schema=public`
+- **Postgres local (instalado):**  
+  `postgresql://seu_user:sua_senha@localhost:5432/seu_db?schema=public`
+
+---
+
+## 2) Escolha seu caminho
+
+### 🔵 Opção A — Docker Compose (recomendado pela praticidade)
+
+Na **raiz do repositório** (onde está o `docker-compose.yml` do Postgres):
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+docker compose up -d postgres
 ```
 
-## Deployment
+> Isso expõe o Postgres em `localhost:5432`.  
+> Ajuste o `backend/.env` para algo como:
+> ```
+> DATABASE_URL="postgresql://sedem_user:sedem_pass@localhost:5432/sedem_db?schema=public"
+> ```
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+### 🟢 Opção B — Postgres instalado na máquina
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+1) Instale o PostgreSQL (Windows/macOS/Linux).  
+2) Crie usuário e banco para o projeto (troque pelos nomes que quiser):
+```sql
+-- abra o psql (Windows: use o "SQL Shell (psql)" ou adicione o bin ao PATH)
+-- logado como superuser (ex.: postgres), execute:
+
+CREATE USER sedem_user WITH PASSWORD 'sedem_pass';
+CREATE DATABASE sedem_db OWNER sedem_user;
+GRANT ALL PRIVILEGES ON DATABASE sedem_db TO sedem_user;
+```
+
+3) Em `backend/.env`, aponte para seu banco local:
+```
+DATABASE_URL="postgresql://sedem_user:sedem_pass@localhost:5432/sedem_db?schema=public"
+```
+
+> Se você usar outro usuário/senha/DB, ajuste a URL.
+
+---
+
+## 3) Instalar dependências e gerar client (no diretório `backend/`)
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+npm install
+npx prisma generate
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+> Import no código (singleton recomendado):
+> ```ts
+> import { PrismaClient } from "@prisma/client";
+> const prisma = new PrismaClient();
+> ```
 
-## Resources
+---
 
-Check out a few resources that may come in handy when working with NestJS:
+## 4) Aplicar o schema ao banco (sem shadow DB)
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+Escolha **uma**:
 
-## Support
+### Com migrações (recomendado)
+```bash
+npx prisma migrate dev --name init
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Sem migrações (empurra o schema direto — útil em protótipo)
+```bash
+npx prisma db push
+```
 
-## Stay in touch
+---
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## 5) Abrir o Prisma Studio (UI)
+```bash
+npx prisma studio
+```
+Abre em `http://localhost:5555`.
 
-## License
+---
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+## 6) Notas importantes
+
+- O Prisma **não** expande `${VAR}` dentro de `DATABASE_URL`. Use a URL **completa**.
+- O `.env` do **backend** é **independente** do `.env` da **raiz** (Docker).
+- Se você mudar usuário/senha/nome do DB no Docker ou no Postgres local, **atualize** a `DATABASE_URL`.
+- Em produção, aplique migrações com:
+  ```bash
+  npx prisma migrate deploy
+  ```
+
+---
+
+## 7) Scripts úteis (adicione no `backend/package.json`)
+
+```json
+{
+  "scripts": {
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:push": "prisma db push",
+    "prisma:studio": "prisma studio",
+    "prisma:reset": "prisma migrate reset -f"
+  }
+}
+```
+
+---
+
+## 8) Fluxo típico em uma máquina nova
+
+1. **(A ou B)** Suba/prepare o Postgres  
+2. Configure `backend/.env` com **URL literal**  
+3. `npm install`  
+4. `npx prisma generate`  
+5. `npx prisma migrate dev` (ou `db push`)  
+6. `npx prisma studio`
