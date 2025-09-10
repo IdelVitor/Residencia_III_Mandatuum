@@ -1,36 +1,47 @@
 // frontend/app/login/page.tsx
+import styles from "./login.module.css";
+
 export const metadata = { title: "Login" };
 
 export default function LoginPage() {
   return (
-    <main className="min-h-screen grid place-items-center p-6">
-      <form className="w-full max-w-sm space-y-4">
-        <h1 className="text-2xl font-semibold">Entrar</h1>
+    <div className={styles.bg}>
+      <div className={styles.brand}>XXXXXXXXXXXXXXXXXXXXXXXX</div>
 
-        <label className="block">
-          <span className="text-sm">E-mail</span>
+      <section className={styles.card}>
+        <h1 className={styles.title}>Login</h1>
+
+        <form className={styles.form}>
+          <label className={styles.label} htmlFor="email">E-mail</label>
           <input
+            id="email"
+            name="email"
             type="email"
-            required
-            className="mt-1 w-full rounded border p-2"
+            className={styles.input}
             placeholder="voce@email.com"
-          />
-        </label>
-
-        <label className="block">
-          <span className="text-sm">Senha</span>
-          <input
-            type="password"
             required
-            className="mt-1 w-full rounded border p-2"
-            placeholder="••••••••"
           />
-        </label>
 
-        <button type="submit" className="w-full rounded bg-black p-2 text-white">
-          Entrar
-        </button>
-      </form>
-    </main>
+          <label className={styles.label} htmlFor="password">Password</label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            className={styles.input}
+            placeholder="••••••••"
+            required
+          />
+
+          <div className={styles.checkboxRow}>
+            <input id="remember" name="remember" type="checkbox" />
+            <label htmlFor="remember">Lembrar-me</label>
+          </div>
+
+          <div className={styles.actions}>
+            <button type="submit" className={styles.button}>Entrar</button>
+          </div>
+        </form>
+      </section>
+    </div>
   );
 }
