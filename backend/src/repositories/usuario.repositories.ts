@@ -1,4 +1,5 @@
-import { prisma } from '../db/prisma';
+import { Role } from '@prisma/client';
+import { prisma } from '../db/prisma'; 
 
 export const usuarioRepository = {
   findById: (id: number) => prisma.usuario.findUnique({ where: { id } }),
@@ -6,17 +7,18 @@ export const usuarioRepository = {
   findByEmail: (email: string) =>
     prisma.usuario.findUnique({ where: { email } }),
 
-  create: (data: {
-    nome: string;
-    email: string;
-    senha_hash: string;
-    role: string;
-  }) => prisma.usuario.create({ data }),
+create: (data: {
+  nome: string;
+  email: string;
+  senha_hash: string;
+  role: Role;  
+}) => prisma.usuario.create({ data }),
 
-  update: (
-    id: number,
-    data: { nome?: string; email?: string; senha_hash?: string; role?: string },
-  ) => prisma.usuario.update({ where: { id }, data }),
+update: (
+  id: number,
+  data: { nome?: string; email?: string; senha_hash?: string; role?: Role },
+) => prisma.usuario.update({ where: { id }, data }),
+
 
   remove: (id: number) => prisma.usuario.delete({ where: { id } }),
 
