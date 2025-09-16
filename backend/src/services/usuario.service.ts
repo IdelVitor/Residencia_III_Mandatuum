@@ -1,12 +1,17 @@
-import { usuarioRepository } from "../repositories/usuario.repositories"; 
-import { hashPassword, verifyPassword } from "../security/password"; 
-import { signAccessToken } from "../security/jwt"; 
+import { usuarioRepository } from '../repositories/usuario.repositories';
+import { hashPassword, verifyPassword } from '../security/password';
+import { signAccessToken } from '../security/jwt';
+import { Role } from '@prisma/client';
 
 export class UsuarioService {
-  // Método para criar um novo usuário
-  async create(nome: string, email: string, senha: string, role = "USER") {
+  async create(
+    nome: string,
+    email: string,
+    senha: string,
+    role: Role = Role.USER,
+  ) {
     const exists = await usuarioRepository.findByEmail(email);
-    if (exists) throw new Error("Email já cadastrado");
+    if (exists) throw new Error('Email já cadastrado');
 
     const senha_hash = await hashPassword(senha);
     return usuarioRepository.create({ nome, email, senha_hash, role });
@@ -15,12 +20,12 @@ export class UsuarioService {
   // Método de login, gerando o JWT
   async login(email: string, senha: string) {
     const user = await usuarioRepository.findByEmail(email);
-    if (!user) throw new Error("Credenciais inválidas");
+    if (!user) throw new Error('Credenciais inválidas');
 
     const isPasswordValid = await verifyPassword(senha, user.senha_hash);
-    if (!isPasswordValid) throw new Error("Credenciais inválidas");
+    if (!isPasswordValid) throw new Error('Credenciais inválidas');
 
-    const token = await signAccessToken({ sub: user.id, email: user.email, role: user.role });
+    const token = await signAccessToken({ sub: user.id.toString(), email: user.email, role: user.role });
 
     return { user, token };
   }
@@ -32,7 +37,10 @@ export class UsuarioService {
   }
 
   // Método para atualizar os dados do usuário
-  async update(id: number, data: { nome?: string; email?: string; senha_hash?: string; role?: string }) {
+  async update(
+    id: number,
+    data: { nome?: string; email?: string; senha_hash?: string; role?: Role },
+  ) {
     return usuarioRepository.update(id, data);
   }
 
