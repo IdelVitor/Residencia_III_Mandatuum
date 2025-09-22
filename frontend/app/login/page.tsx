@@ -6,7 +6,7 @@ export const metadata = { title: "Login" };
 export default function LoginPage() {
   return (
     <div className={styles.bg}>
-      <div className={styles.brand}>XXXXXXXXXXXXXXXXXXXXXXXX</div>
+      <div className={styles.brand}>Mandatuum</div>
 
       <section className={styles.card}>
         <h1 className={styles.title}>Login</h1>

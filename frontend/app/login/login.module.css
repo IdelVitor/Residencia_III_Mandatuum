@@ -27,15 +27,18 @@
 /* “Pílula” do topo */
 .brand {
   width: min(880px, 92vw);
+  height: min(960px, 40vw);
   background: var(--brand);
   color: #fff;
   font-weight: 700;                /* 800 -> 700 para suavizar */
   font-size: 26px;
-  line-height: 1;
+  line-height: 2;
   text-align: center;
   padding: 16px 28px;
   border-radius: 26px;
   box-shadow: 0 6px 16px rgba(50, 77, 255, 0.15);
+  position: relative;
+  z-index: 1;
 }
 
 /* Card */
@@ -44,8 +47,11 @@
   background: var(--card);
   border-radius: 36px;             /* 40 -> 36 */
   padding: 40px 36px 48px;
+  margin-top: 6%;
   border: 1px solid var(--input-border);
   box-shadow: var(--shadow);
+  position: absolute;
+  z-index: 2;
 }
 
 /* Título */
