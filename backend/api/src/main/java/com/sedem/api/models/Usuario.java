@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.beans.ConstructorProperties;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,6 +13,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Table(name = "usuarios")
 public class Usuario {
 
@@ -34,6 +34,21 @@ public class Usuario {
 
     @Column(name = "criado_em")
     private LocalDateTime criadoEm = LocalDateTime.now();
+
+    @Column(name = "atualizado_em")
+    private LocalDateTime atualizadoEm;
+
+    @PrePersist
+    public void prePersist() {
+        if (this.atualizadoEm == null) {
+            this.atualizadoEm = LocalDateTime.now();  // Definindo a data de criação
+        }
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.atualizadoEm = LocalDateTime.now();  // Sempre que o usuário for atualizado, o campo será atualizado com o timestamp atual
+    }
 
     // Relações
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
