@@ -10,7 +10,7 @@
   --input-border: #E1E6EF;
   --ring: hsl(234 85% 64% / 22%);
   --shadow: 0 16px 40px rgba(17, 24, 39, 0.14),
-            0 3px  8px  rgba(17, 24, 39, 0.06);
+  0 3px  8px  rgba(17, 24, 39, 0.06);
 }
 
 /* Fundo geral */

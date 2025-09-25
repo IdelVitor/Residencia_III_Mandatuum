@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation"; // 👈 para redirecionar
 import styles from "./login.module.css";
 
 export default function LoginPage() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [error, setError] = useState("");
@@ -29,7 +31,7 @@ export default function LoginPage() {
       localStorage.setItem("userId", String(data.userId));
       localStorage.setItem("role", String(data.role));
 
-      window.location.href = "/"; // 👈 depois podemos trocar por rota protegida
+      router.push("/dashboard"); // 👈 redireciona pro Dashboard
     } catch (err: any) {
       setError(err.message || "Erro inesperado");
     }
@@ -43,7 +45,9 @@ export default function LoginPage() {
           <h1 className={styles.title}>Login</h1>
 
           <form className={styles.form} onSubmit={handleLogin}>
-            <label className={styles.label} htmlFor="email">E-mail</label>
+            <label className={styles.label} htmlFor="email">
+              E-mail
+            </label>
             <input
                 id="email"
                 name="email"
@@ -55,7 +59,9 @@ export default function LoginPage() {
                 required
             />
 
-            <label className={styles.label} htmlFor="password">Password</label>
+            <label className={styles.label} htmlFor="password">
+              Password
+            </label>
             <input
                 id="password"
                 name="password"
@@ -75,7 +81,9 @@ export default function LoginPage() {
             {error && <p style={{ color: "red", marginTop: 8 }}>{error}</p>}
 
             <div className={styles.actions}>
-              <button type="submit" className={styles.button}>Entrar</button>
+              <button type="submit" className={styles.button}>
+                Entrar
+              </button>
             </div>
           </form>
         </section>
