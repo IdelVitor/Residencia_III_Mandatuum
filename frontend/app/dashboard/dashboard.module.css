@@ -1,9 +1,8 @@
 /* =====================================
    🧭 Mandatuum - Dashboard Moderno
-   Visual limpo e equilibrado
+   Integrado ao tema global
 ===================================== */
 
-/* ===== Layout base ===== */
 .shell {
   display: grid;
   grid-template-columns: 250px 1fr;
@@ -14,7 +13,7 @@
 
 /* ===== Sidebar ===== */
 .sidebar {
-  background: linear-gradient(180deg, #3f47cc 0%, #4f5ef7 100%);
+  background: linear-gradient(180deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -49,7 +48,7 @@
 
 .navItem:hover {
   background: rgba(255, 255, 255, 0.25);
-  color: #ffffff; 
+  color: #ffffff;
   transform: translateX(2px);
 }
 
@@ -73,13 +72,7 @@
 
 .logout:hover {
   background: #fff;
-  color: #4f5ef7;
-}
-
-/* ===== Main Area ===== */
-.main {
-  display: flex;
-  flex-direction: column;
+  color: var(--color-primary);
 }
 
 /* ===== Topbar ===== */
@@ -87,7 +80,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #ffffff;
+  background: var(--color-card-bg);
   color: var(--color-text);
   padding: 0.8rem 1.8rem;
   border-bottom: 1px solid var(--color-border);
@@ -111,15 +104,10 @@
   background: var(--color-bg);
 }
 
-.pageIntro {
-  margin-bottom: 1.5rem;
-}
-
 .h1 {
   font-size: 1.8rem;
   font-weight: 700;
   color: var(--color-text);
-  margin: 0 0 0.4rem 0;
 }
 
 .subtitle {
@@ -127,50 +115,16 @@
   font-size: 1rem;
 }
 
-/* ===== Cards futuros (estrutura pronta) ===== */
-.cards {
-  margin-top: 2rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1.5rem;
-}
-
+/* ===== Cards ===== */
 .card {
-  background: #fff;
+  background: var(--color-card-bg);
   border: 1px solid var(--color-border);
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   padding: 1.5rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-md);
   transition: transform 0.2s ease;
 }
 
 .card:hover {
   transform: translateY(-4px);
-}
-
-/* ===== Responsivo ===== */
-@media (max-width: 900px) {
-  .shell {
-    grid-template-columns: 80px 1fr;
-  }
-
-  .menuTitle {
-    display: none;
-  }
-
-  .navItem {
-    font-size: 0;
-    justify-content: center;
-  }
-
-  .navItem::before {
-    content: "•";
-    font-size: 1.5rem;
-    display: block;
-    text-align: center;
-  }
-
-  .logout {
-    font-size: 0;
-  }
 }

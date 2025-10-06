@@ -1,11 +1,11 @@
 /* =====================================
    🎨 Mandatuum Login - Estilo Moderno
-   Mantém paleta azul/branca, mas limpa o fundo
+   Totalmente integrado ao tema global
 ===================================== */
 
 .bg {
   min-height: 100vh;
-  background: #f4f6fb; /* Fundo suave, mantém o mesmo tom */
+  background: var(--color-bg);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,20 +18,20 @@
 .brand {
   font-size: 1.8rem;
   font-weight: 800;
-  color: #4f5ef7;
+  color: var(--color-primary);
   margin-bottom: 1rem;
   text-align: center;
 }
 
 /* Card principal */
 .card {
-  background: #ffffff;
-  border-radius: 24px;
+  background: var(--color-card-bg);
+  border-radius: var(--radius-lg);
   width: 100%;
   max-width: 440px;
   padding: 2.5rem 2rem 2.8rem;
-  box-shadow: 0 12px 32px rgba(79, 94, 247, 0.12);
-  border: 1px solid #e5e9ff;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border);
   animation: fadeIn 0.5s ease;
 }
 
@@ -39,7 +39,7 @@
 .title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--color-text);
   text-align: center;
   margin-bottom: 1.5rem;
 }
@@ -47,7 +47,7 @@
 /* Labels */
 .label {
   font-weight: 600;
-  color: #0f172a;
+  color: var(--color-text);
   font-size: 0.95rem;
   margin-bottom: 0.4rem;
   display: block;
@@ -57,17 +57,17 @@
 .input {
   width: 100%;
   padding: 0.75rem 1rem;
-  border: 1px solid #dbe3ff;
+  border: 1px solid var(--color-border);
   border-radius: 12px;
-  background: #eef3ff;
+  background: var(--color-card-bg);
   font-size: 0.95rem;
-  color: #0f172a;
+  color: var(--color-text);
   outline: none;
   transition: all 0.2s ease-in-out;
 }
 
 .input:focus {
-  border-color: #4f5ef7;
+  border-color: var(--color-primary);
   background: #fff;
   box-shadow: 0 0 0 3px rgba(79, 94, 247, 0.15);
 }
@@ -78,7 +78,7 @@
   align-items: center;
   gap: 0.5rem;
   font-size: 0.9rem;
-  color: #475569;
+  color: var(--color-text-light);
   margin-top: 0.8rem;
 }
 
@@ -92,7 +92,7 @@
 .button {
   width: 100%;
   padding: 0.9rem;
-  background: #4f5ef7;
+  background: var(--color-primary);
   color: #fff;
   border: none;
   border-radius: 10px;
@@ -104,7 +104,7 @@
 }
 
 .button:hover {
-  background: #3d4be3;
+  background: var(--color-primary-dark);
   transform: translateY(-1px);
 }
 
@@ -114,7 +114,7 @@
 
 /* Mensagem de erro */
 .error {
-  color: #ef4444;
+  color: var(--color-danger);
   font-size: 0.9rem;
   margin-top: 0.5rem;
   text-align: center;

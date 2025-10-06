@@ -1,47 +1,184 @@
 "use client";
 
+import { useState } from "react";
 import styles from "./acoes.module.css";
-import MapView from "./MapViewLeaflet";
 
-export default function AcoesPage() {
+export default function NovaTarefa() {
+  const [loading, setLoading] = useState(false);
+
+  const [form, setForm] = useState({
+    titulo: "",
+    descricao: "",
+    datas: "", // corrigido para o nome aceito no backend
+    responsavel: "",
+    prioridade: "",
+    categorias: "",
+    status: "",
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tarefas`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          titulo: form.titulo,
+          descricao: form.descricao,
+          datas: form.datas + "T00:00:00", // garante formato ISO aceito pelo backend
+          responsavel: form.responsavel,
+          prioridade: form.prioridade.toUpperCase(),
+          status: form.status.toUpperCase().replace(" ", "_"),
+          categorias: form.categorias
+            ? form.categorias.split(",").map((c) => c.trim())
+            : [],
+          usuario: { id: 1 }, // temporário (pode vir do JWT depois)
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erro ao salvar tarefa (${response.status})`);
+      }
+
+      const data = await response.json();
+      alert("✅ Tarefa cadastrada com sucesso!");
+      console.log("Nova tarefa salva:", data);
+
+      // Limpa o formulário
+      setForm({
+        titulo: "",
+        descricao: "",
+        datas: "",
+        responsavel: "",
+        prioridade: "",
+        categorias: "",
+        status: "",
+      });
+
+      // Opcional: redirecionar
+      // window.location.href = "/dashboard";
+
+    } catch (err) {
+      console.error(err);
+      alert("❌ Ocorreu um erro ao cadastrar a tarefa.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div className={styles.shell}>
-      <aside className={styles.sidebar}>
-        <div className={styles.menuTitle}>Menu Principal</div>
-        <nav className={styles.nav}>
-          <a className={styles.navItem} href="/dashboard">Dashboard</a>
-          <a className={`${styles.navItem} ${styles.active}`} href="/acoes">Ações</a>
-          <a className={styles.navItem} href="#">Gestão de Tarefas</a>
-          <a className={styles.navItem} href="#">Cadastro</a>
-          <a className={styles.navItem} href="#">Financeiro</a>
-          <a className={styles.navItem} href="#">Eleições 2026</a>
-          <a className={styles.navItem} href="#">Configurações</a>
-        </nav>
-        <button className={styles.logout}>Sair</button>
-      </aside>
+    <div className={styles.container}>
+      <div className={styles.card}>
+        <h1 className={styles.title}>Cadastrar Nova Tarefa</h1>
+        <p className={styles.subtitle}>
+          Preencha as informações abaixo para registrar uma nova tarefa no sistema.
+        </p>
 
-      <div className={styles.main}>
-        <header className={styles.topbar}>
-          <div>
-            <div className={styles.brand}>Ações</div>
-            <div className={styles.subtitleTop}>Visualize e gerencie as ações realizadas</div>
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <label className={styles.label}>Título</label>
+          <input
+            type="text"
+            name="titulo"
+            value={form.titulo}
+            onChange={handleChange}
+            className={styles.input}
+            placeholder="Ex: Atualizar planilha de gastos"
+            required
+          />
+
+          <label className={styles.label}>Descrição</label>
+          <textarea
+            name="descricao"
+            value={form.descricao}
+            onChange={handleChange}
+            className={styles.textarea}
+            placeholder="Descreva brevemente a tarefa..."
+          />
+
+          <div className={styles.row}>
+            <div className={styles.col}>
+              <label className={styles.label}>Data</label>
+              <input
+                type="date"
+                name="datas"
+                value={form.datas}
+                onChange={handleChange}
+                className={styles.input}
+              />
+            </div>
+            <div className={styles.col}>
+              <label className={styles.label}>Responsável</label>
+              <input
+                type="text"
+                name="responsavel"
+                value={form.responsavel}
+                onChange={handleChange}
+                className={styles.input}
+                placeholder="Ex: João Silva"
+              />
+            </div>
           </div>
-          <div className={styles.topRight}>Olá, XXX</div>
-        </header>
 
-        <main className={styles.content}>
-          <h1 className={styles.h1}>Mapas de Ações</h1>
-
-          <div className={styles.tabs}>
-            <button className={`${styles.tab} ${styles.tabActive}`}>Pontos Individuais</button>
-            <button className={styles.tab}>Contadores por Bairro</button>
-            <button className={styles.tab}>Mapa de Calor</button>
+          <div className={styles.row}>
+            <div className={styles.col}>
+              <label className={styles.label}>Prioridade</label>
+              <select
+                name="prioridade"
+                value={form.prioridade}
+                onChange={handleChange}
+                className={styles.select}
+                required
+              >
+                <option value="">Selecione...</option>
+                <option value="BAIXA">Baixa</option>
+                <option value="MEDIA">Média</option>
+                <option value="ALTA">Alta</option>
+              </select>
+            </div>
+            <div className={styles.col}>
+              <label className={styles.label}>Status</label>
+              <select
+                name="status"
+                value={form.status}
+                onChange={handleChange}
+                className={styles.select}
+                required
+              >
+                <option value="">Selecione...</option>
+                <option value="ABERTA">Aberta</option>
+                <option value="EM_ANDAMENTO">Em andamento</option>
+                <option value="CONCLUIDA">Concluída</option>
+              </select>
+            </div>
           </div>
 
-          <section className={styles.mapCard}>
-            <MapView />
-          </section>
-        </main>
+          <label className={styles.label}>Categorias (separadas por vírgula)</label>
+          <input
+            type="text"
+            name="categorias"
+            value={form.categorias}
+            onChange={handleChange}
+            className={styles.input}
+            placeholder="Ex: financeiro, administrativo"
+          />
+
+          <div className={styles.actions}>
+            <button type="button" className={styles.cancel}>
+              Cancelar
+            </button>
+            <button type="submit" className={styles.submit} disabled={loading}>
+              {loading ? "Salvando..." : "Salvar Tarefa"}
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
