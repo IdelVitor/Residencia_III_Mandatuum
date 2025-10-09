@@ -2,18 +2,27 @@
 
 import { useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
+import Link from "next/link"; 
 import styles from "./dashboard.module.css";
 
 export default function DashboardPage() {
   const router = useRouter();
-  const pathname = usePathname(); // pega a rota atual
+  const pathname = usePathname();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (!token) {
-      router.push("/login");
-    }
+    if (!token) router.push("/login");
   }, [router]);
+
+  const menuItems = [
+    { name: "Dashboard", path: "/dashboard" },
+    { name: "Ações", path: "/acoes" },
+    { name: "Gestão de Tarefas", path: "/gestaoDeTarefas" },
+    { name: "Cadastro", path: "/cadastro" },
+    { name: "Financeiro", path: "/financeiro" },
+    { name: "Eleições 2026", path: "/eleicoes-2026" },
+    { name: "Configurações", path: "/configuracoes" },
+  ];
 
   return (
     <div className={styles.shell}>
@@ -22,45 +31,17 @@ export default function DashboardPage() {
         <div className={styles.menuTitle}>Menu Principal</div>
 
         <nav className={styles.nav}>
-          <a
-            href="/dashboard"
-            className={`${styles.navItem} ${
-              pathname === "/dashboard" ? styles.active : ""
-            }`}
-          >
-            Dashboard
-          </a>
-
-          <a
-            href="#"
-            className={`${styles.navItem} ${
-              pathname === "/acoes" ? styles.active : ""
-            }`}
-          >
-            Ações
-          </a>
-
-          <a
-            href="/acoes"
-            className={`${styles.navItem} ${
-              pathname === "/acoes" ? styles.active : ""
-            }`}
-          >
-            Gestão de Tarefas
-          </a>
-
-          <a href="#" className={styles.navItem}>
-            Cadastro
-          </a>
-          <a href="#" className={styles.navItem}>
-            Financeiro
-          </a>
-          <a href="#" className={styles.navItem}>
-            Eleições 2026
-          </a>
-          <a href="#" className={styles.navItem}>
-            Configurações
-          </a>
+          {menuItems.map((item) => (
+            <Link
+              key={item.path}
+              href={item.path}
+              className={`${styles.navItem} ${
+                pathname === item.path ? styles.active : ""
+              }`}
+            >
+              {item.name}
+            </Link>
+          ))}
         </nav>
 
         <button

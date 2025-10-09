@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation"; // 👈 para redirecionar
+import { useRouter } from "next/navigation";
 import styles from "./login.module.css";
 
 export default function LoginPage() {
@@ -31,7 +31,7 @@ export default function LoginPage() {
       localStorage.setItem("userId", String(data.userId));
       localStorage.setItem("role", String(data.role));
 
-      router.push("/dashboard"); // 👈 redireciona pro Dashboard
+      router.push("/dashboard");
     } catch (err: any) {
       setError(err.message || "Erro inesperado");
     }

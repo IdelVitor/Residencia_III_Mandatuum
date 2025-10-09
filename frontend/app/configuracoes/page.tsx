@@ -1,40 +1,56 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+import Link from "next/link"; // ✅ transições sem reload
 import dash from "../dashboard/dashboard.module.css";
 import styles from "./configuracoes.module.css";
 
+// Import dos componentes das abas
 import AlterarSenha from "./components/AlterarSenha";
 import CadastroUsuario from "./components/CadastroUsuario";
 import AdministracaoUsuarios from "./components/AdministracaoUsuarios";
 
 export default function ConfiguracoesPage() {
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) router.push("/login");
   }, [router]);
 
-  // controla a aba ativa
+  // Estado que controla a aba ativa
   const [abaAtiva, setAbaAtiva] = useState("senha");
+
+  const menuItems = [
+    { name: "Dashboard", path: "/dashboard" },
+    { name: "Ações", path: "/acoes" },
+    { name: "Gestão de Tarefas", path: "/gestaoDeTarefas" },
+    { name: "Cadastro", path: "/cadastro" },
+    { name: "Financeiro", path: "/financeiro" },
+    { name: "Eleições 2026", path: "/eleicoes-2026" },
+    { name: "Configurações", path: "/configuracoes" },
+  ];
 
   return (
     <div className={dash.shell}>
-      {/* Sidebar lateral fixa */}
+      {/* Sidebar lateral */}
       <aside className={dash.sidebar}>
         <div className={dash.menuTitle}>Menu Principal</div>
+
         <nav className={dash.nav}>
-          <a href="/dashboard" className={dash.navItem}>Dashboard</a>
-          <a href="/acoes" className={dash.navItem}>Ações</a>
-          <a href="/acoes" className={dash.navItem}>Gestão de Tarefas</a>
-          <a href="#" className={dash.navItem}>Cadastro</a>
-          <a href="#" className={dash.navItem}>Financeiro</a>
-          <a href="#" className={dash.navItem}>Eleições 2026</a>
-          <a href="/configuracoes" className={`${dash.navItem} ${dash.active}`}>
-            Configurações
-          </a>
+          {menuItems.map((item) => (
+            <Link
+              key={item.path}
+              href={item.path}
+              className={`${dash.navItem} ${
+                pathname === item.path ? dash.active : ""
+              }`}
+            >
+              {item.name}
+            </Link>
+          ))}
         </nav>
 
         <button
@@ -58,29 +74,37 @@ export default function ConfiguracoesPage() {
               <p>Gerencie suas configurações de usuário</p>
             </div>
 
-            {/* Tabs */}
+            {/* Tabs de navegação */}
             <div className={styles.tabs}>
               <span
                 onClick={() => setAbaAtiva("senha")}
-                className={`${styles.tab} ${abaAtiva === "senha" ? styles.active : ""}`}
+                className={`${styles.tab} ${
+                  abaAtiva === "senha" ? styles.active : ""
+                }`}
               >
                 Alteração de Senha
               </span>
+
               <span
                 onClick={() => setAbaAtiva("cadastro")}
-                className={`${styles.tab} ${abaAtiva === "cadastro" ? styles.active : ""}`}
+                className={`${styles.tab} ${
+                  abaAtiva === "cadastro" ? styles.active : ""
+                }`}
               >
                 Cadastro de Usuário
               </span>
+
               <span
                 onClick={() => setAbaAtiva("admin")}
-                className={`${styles.tab} ${abaAtiva === "admin" ? styles.active : ""}`}
+                className={`${styles.tab} ${
+                  abaAtiva === "admin" ? styles.active : ""
+                }`}
               >
                 Administração de Usuários
               </span>
             </div>
 
-            {/* Renderização condicional */}
+            {/* Renderização condicional das seções */}
             {abaAtiva === "senha" && <AlterarSenha />}
             {abaAtiva === "cadastro" && <CadastroUsuario />}
             {abaAtiva === "admin" && <AdministracaoUsuarios />}
