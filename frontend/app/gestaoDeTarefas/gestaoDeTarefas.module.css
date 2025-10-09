@@ -1,0 +1,184 @@
+/* =======================================
+   🗂️ Mandatuum - Gestão de Tarefas (Layout ClickUp)
+   Versão atualizada e limpa (sem breadcrumb)
+======================================= */
+
+/* Conteúdo principal */
+.container {
+  padding: 2rem 2.5rem 3rem 2.5rem;
+}
+
+/* Título e subtítulo no topo */
+.header {
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+.header p {
+  color: var(--color-text-light);
+  font-size: 1rem;
+  margin-top: 0.3rem;
+}
+
+/* Botão "Nova Tarefa" no topo à direita */
+.topActions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2rem;
+}
+
+.newTaskButton {
+  background: #7b2ff7;
+  border: none;
+  color: white;
+  padding: 0.6rem 1.4rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 15px rgba(123, 47, 247, 0.3);
+}
+
+.newTaskButton:hover {
+  background: #5e0ef1;
+  transform: translateY(-2px);
+}
+
+/* Colunas de tarefas */
+.columnsWrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Cabeçalhos das colunas */
+.columnTitle {
+  width: 80%;
+  text-align: center;
+  font-weight: 700;
+  color: white;
+  padding: 0.6rem 0;
+  border-radius: 8px;
+  margin-bottom: 1.2rem;
+  font-size: 1.05rem;
+}
+
+/* Cores das colunas */
+.todo {
+  background: #00e0ff;
+}
+
+.inProgress {
+  background: #c400ff;
+}
+
+.done {
+  background: #6a8f2e;
+}
+
+/* Caixas de tarefas */
+.taskBox {
+  width: 100%;
+  min-height: 110px;
+  background: white;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 1rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.taskBox:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* Títulos e descrições das tarefas */
+.taskTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.3rem;
+}
+
+.taskDesc {
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+/* Cabeçalho com botão alinhado */
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.headerRow h1 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+.headerRow p {
+  color: var(--color-text-light);
+  font-size: 1rem;
+  margin-top: 0.3rem;
+}
+
+/* Área das colunas */
+.columnsWrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+/* Área droppable */
+.droppableArea {
+  width: 100%;
+  min-height: 100px;
+  background: transparent;
+  border-radius: 12px;
+  transition: background 0.2s ease;
+}
+
+.draggingOver {
+  background: rgba(123, 47, 247, 0.06);
+}
+
+/* Animação de drag */
+.dragging {
+  transform: rotate(1deg);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Botão "Nova Tarefa" */
+.newTaskButton {
+  background: #7b2ff7;
+  border: none;
+  color: white;
+  padding: 0.7rem 1.6rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(123, 47, 247, 0.3);
+  transition: all 0.25s ease;
+}
+.newTaskButton:hover {
+  background: #5e0ef1;
+  transform: translateY(-2px);
+}
