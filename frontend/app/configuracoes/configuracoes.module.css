@@ -1,0 +1,225 @@
+/* =======================================
+   ⚙️ Configurações - Mandatuum Design System
+   Edição premium e espaçamento refinado
+======================================= */
+
+.container {
+  min-height: 100vh;
+  background: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0rem 1rem 0rem 1rem;
+}
+
+/* ===== Cabeçalho ===== */
+.header {
+  text-align: center;
+  margin-bottom: 2.8rem;
+}
+
+.header h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--color-primary);
+}
+
+.header p {
+  color: var(--color-text-light);
+  margin-top: 0.4rem;
+  font-size: 1rem;
+}
+
+/* ===== Tabs ===== */
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.tab {
+  font-weight: 600;
+  color: var(--color-text-light);
+  cursor: pointer;
+  position: relative;
+  padding-bottom: 0.6rem;
+  transition: color 0.25s ease;
+  font-size: 1rem;
+}
+
+.tab:hover {
+  color: var(--color-primary);
+}
+
+.active {
+  color: var(--color-primary);
+  border-bottom: 2px solid var(--color-primary);
+}
+
+/* ===== Card centralizado ===== */
+.form {
+  background: var(--color-card-bg);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--color-border);
+  width: 100%;
+  max-width: 680px;
+  padding: 3.5rem 3rem;
+  margin: 0 auto 3rem;
+  animation: fadeIn 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+
+/* ===== Título ===== */
+.subtitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 0.25rem;
+  text-align: left;
+}
+
+.description {
+  font-size: 0.98rem;
+  color: var(--color-text-light);
+  margin-bottom: 1.5rem;
+}
+
+/* ===== Campos ===== */
+.label {
+  display: block;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.01em;
+}
+
+/* Campos lado a lado */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.8rem;
+}
+
+.fieldGroup {
+  flex: 1;
+  min-width: 260px;
+}
+
+/* ===== Inputs e Select ===== */
+.input,
+.select {
+  width: 100%;
+  padding: 1rem 1.1rem;
+  padding-right: 2.8rem; /* espaço pra setinha */
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  background: #f8f9ff;
+  font-size: 1rem;
+  color: var(--color-text);
+  appearance: none; /* remove o padrão do navegador */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%23505ac9' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 1rem center; /* 👈 centraliza verticalmente */
+  background-size: 1.1rem;
+  transition: all 0.25s ease;
+}
+
+.input:focus,
+.select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(79, 94, 247, 0.15);
+  background-color: #fff;
+  outline: none;
+}
+
+/* ===== Campo de senha com ícone ===== */
+.passwordWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.eyeIcon {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-light);
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.15s ease;
+}
+
+.eyeIcon:hover {
+  color: var(--color-primary);
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* ===== Botão ===== */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.submit {
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 1rem 2.4rem;
+  font-weight: 600;
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(79, 94, 247, 0.25);
+}
+
+.submit:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(79, 94, 247, 0.35);
+}
+
+.submit:active {
+  transform: scale(0.98);
+  box-shadow: 0 5px 10px rgba(79, 94, 247, 0.2);
+}
+
+/* ===== Espaçamento refinado ===== */
+.input:not(:last-child),
+.select:not(:last-child),
+.passwordWrapper:not(:last-child) {
+  margin-bottom: 0.2rem;
+}
+
+/* ===== Animação suave ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== Responsividade ===== */
+@media (max-width: 768px) {
+  .form {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .tabs {
+    gap: 1.2rem;
+  }
+}

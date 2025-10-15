@@ -1,9 +1,4 @@
-networks:
-  sedem-network:
-    driver: bridge
-
-volumes:
-  pgdata:
+version: '3'
 
 services:
   postgres:
@@ -26,3 +21,21 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+
+  adminer:
+    image: adminer:latest
+    container_name: sedem-adminer
+    restart: unless-stopped
+    ports:
+      - "8081:8080"
+    networks:
+      - sedem-network
+    depends_on:
+      - postgres
+
+networks:
+  sedem-network:
+    driver: bridge
+
+volumes:
+  pgdata:
