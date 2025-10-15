@@ -1,7 +1,6 @@
 package com.sedem.api.repositories;
 
 import com.sedem.api.models.Acao;
-import com.sedem.api.models.Tarefa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,5 +10,8 @@ import java.util.Optional;
 @Repository
 public interface AcaoRepository extends JpaRepository<Acao, Long> {
     Optional<Acao> findById(Long id);
+
     List<Acao> findAll();
+
+    void deleteById(Long id);
 }
