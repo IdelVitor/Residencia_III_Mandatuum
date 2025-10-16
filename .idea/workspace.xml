@@ -6,8 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="19d0533e-f35a-4ede-864f-525e65f89f53" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/repositories/AcaoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/repositories/AcaoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/repositories/ContatoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/repositories/ContatoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/repositories/CoordenadaBairroRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/repositories/CoordenadaBairroRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/repositories/RegistroFinanceiroRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/repositories/RegistroFinanceiroRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/repositories/TarefaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/repositories/TarefaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/repositories/UserAccessLogRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/repositories/UserAccessLogRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/repositories/UserPermissionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/repositories/UserPermissionRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +67,7 @@
       <updated>1759847404870</updated>
       <workItem from="1759847407178" duration="1938000" />
       <workItem from="1760555225034" duration="692000" />
-      <workItem from="1760570392233" duration="2002000" />
+      <workItem from="1760570392233" duration="3164000" />
     </task>
     <servers />
   </component>
