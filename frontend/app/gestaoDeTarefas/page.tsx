@@ -117,18 +117,15 @@ export default function GestaoDeTarefas() {
 
       {/* Área principal */}
       <div className={dash.main}>
-        <header className={dash.topbar}>
-          <div className={dash.brand}>Gestão de Tarefas</div>
-          <div className={dash.topRight}>Olá, XXX</div>
-        </header>
-
         <main className={`${dash.content} ${styles.container}`}>
-          {/* Cabeçalho com botão alinhado */}
-          <div className={styles.headerRow}>
-            <div>
-              <h1>Gestão de Tarefas</h1>
-              <p>Organize e acompanhe o processo das tarefas</p>
-            </div>
+          {/* 🔹 Cabeçalho centralizado (igual à página Configurações) */}
+          <div className={styles.header}>
+            <h1>Gestão de Tarefas</h1>
+            <p>Organize e acompanhe o processo das tarefas</p>
+          </div>
+
+          {/* 🔹 Botão Nova Tarefa */}
+          <div className={styles.topActions}>
             <button
               className={styles.newTaskButton}
               onClick={() => router.push("/gestaoDeTarefas/novaTarefa")}
@@ -137,7 +134,7 @@ export default function GestaoDeTarefas() {
             </button>
           </div>
 
-          {/* Colunas de tarefas com Drag and Drop */}
+          {/* 🔹 Colunas de tarefas com Drag and Drop */}
           <DragDropContext onDragEnd={onDragEnd}>
             <section className={styles.columnsWrapper}>
               {Object.entries(columns).map(([columnId, column]) => (
