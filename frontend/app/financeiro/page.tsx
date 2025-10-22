@@ -82,52 +82,61 @@ export default function FinanceiroPage() {
 
       {/* Conteúdo principal */}
       <div className={dash.main}>
-        <header className={dash.topbar}>
-          <div className={dash.brand}>Financeiro</div>
-          <div className={dash.topRight}>Olá, XXX</div>
-        </header>
+        <main className={`${dash.content} ${styles.page}`}>
+          {/* Cabeçalho da página (igual Configurações) */}
+          <div className={styles.pageHeader}>
+            <h1 className={styles.pageTitle}>Financeiro</h1>
+            <p className={styles.pageSubtitle}>
+              Gerencie as configurações financeiras do sistema.
+            </p>
+          </div>
 
-        <main className={`${dash.content} ${styles.container}`}>
-          <div className={styles.header}>
-            <h1>Registros Financeiros</h1>
+          <div className={styles.topActions}>
             <button
-              className={styles.newButton}
+              className={styles.newActionButton}
               onClick={() => router.push("/financeiro/novoRegistro")}
             >
               Novo Registro
             </button>
           </div>
 
-          <table className={styles.table}>
-            <thead>
-              <tr>
-                <th>DATA</th>
-                <th>LOCAÇÃO</th>
-                <th>ASS. JURÍDICA</th>
-                <th>ASS. COMUNICAÇÃO</th>
-                <th>COMBUSTÍVEL</th>
-                <th>DÉBITO</th>
-                <th>CRÉDITO</th>
-                <th>OUTROS</th>
-                <th>TOTAL</th>
-              </tr>
-            </thead>
-            <tbody>
-              {registros.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.data}</td>
-                  <td>R$ {item.locacao.toLocaleString()}</td>
-                  <td>R$ {item.juridica.toLocaleString()}</td>
-                  <td>R$ {item.comunicacao.toLocaleString()}</td>
-                  <td>R$ {item.combustivel.toLocaleString()}</td>
-                  <td>R$ {item.debito.toLocaleString()}</td>
-                  <td>R$ {item.credito.toLocaleString()}</td>
-                  <td>R$ {item.outros.toLocaleString()}</td>
-                  <td>R$ {item.total.toLocaleString()}</td>
+          {/* Seção de Registros Financeiros */}
+          <h2 className={styles.cardTitle}>Registros Financeiros</h2>
+
+          <div className={styles.tableWrapper}>
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>DATA</th>
+                  <th>LOCAÇÃO</th>
+                  <th>ASS. JURÍDICA</th>
+                  <th>ASS. COMUNICAÇÃO</th>
+                  <th>COMBUSTÍVEL</th>
+                  <th>DÉBITO</th>
+                  <th>CRÉDITO</th>
+                  <th>OUTROS</th>
+                  <th>TOTAL</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {registros.map((r, i) => (
+                  <tr key={i}>
+                    <td>{r.data}</td>
+                    <td>R$ {r.locacao.toLocaleString()}</td>
+                    <td>R$ {r.juridica.toLocaleString()}</td>
+                    <td>R$ {r.comunicacao.toLocaleString()}</td>
+                    <td>R$ {r.combustivel.toLocaleString()}</td>
+                    <td>R$ {r.debito.toLocaleString()}</td>
+                    <td>R$ {r.credito.toLocaleString()}</td>
+                    <td>R$ {r.outros.toLocaleString()}</td>
+                    <td className={styles.total}>
+                      R$ {r.total.toLocaleString()}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </main>
       </div>
     </div>

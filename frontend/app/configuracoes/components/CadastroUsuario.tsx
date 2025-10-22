@@ -10,7 +10,7 @@ export default function CadastroUsuario() {
   return (
     <div className={styles.container}>
       <form className={styles.card}>
-        <h2 className={styles.title}>Cadastro de Usuário</h2>
+        <h2 className={styles.cardTitle}>Cadastro de Usuário</h2>
 
         <label className={styles.label}>Nome*</label>
         <input

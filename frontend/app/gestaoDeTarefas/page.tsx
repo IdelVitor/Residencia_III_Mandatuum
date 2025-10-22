@@ -127,7 +127,7 @@ export default function GestaoDeTarefas() {
           {/* 🔹 Botão Nova Tarefa */}
           <div className={styles.topActions}>
             <button
-              className={styles.newTaskButton}
+              className={styles.newActionButton}
               onClick={() => router.push("/gestaoDeTarefas/novaTarefa")}
             >
               Nova Tarefa

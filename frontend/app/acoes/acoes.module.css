@@ -1,15 +1,16 @@
 /* Fundo e espaçamento */
 .container {
-  padding: 0rem 1rem 0rem 1rem;
-  background: #f7f8ff;
+  background: #f6f7ff;
   min-height: 100vh;
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Cabeçalho centralizado */
 .header {
   text-align: center;
-  margin-top: 0.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 2.2rem;
 }
 
 .header h1 {
@@ -28,8 +29,12 @@
 /* Botão "Nova Ação" (idêntico ao de “Nova Tarefa”) */
 .topActions {
   display: flex;
-  justify-content: flex-end;
-  margin-bottom: 2rem;
+  justify-content: flex-end;  
+  width: 100%;
+  max-width: 960px;           
+  margin-top: 1.2rem;
+  margin-bottom: 2.2rem;
+  padding-right: 1rem;        
 }
 
 .newActionButton {
@@ -52,11 +57,12 @@
 }
 
 /* Título das seções */
-.sectionTitle {
-  font-size: 1.4rem;
-  font-weight: 700;
-  margin: 1.2rem 0;
-  color: #1a1a1a;
+.cardTitle {        
+  font-size: 1.5rem;          
+  font-weight: 800;            
+  color: #0f172a;              
+  margin-bottom: 1.5rem;       
+  letter-spacing: -0.01em;
 }
 
 /* Tabela estilizada */

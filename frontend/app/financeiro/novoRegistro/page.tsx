@@ -63,11 +63,6 @@ export default function NovoRegistroFinanceiro() {
 
       {/* Conteúdo principal */}
       <div className={dash.main}>
-        <header className={dash.topbar}>
-          <div className={dash.brand}>Financeiro</div>
-          <div className={dash.topRight}>Olá, XXX</div>
-        </header>
-
         <main className={`${dash.content} ${styles.container}`}>
           <div className={styles.header}>
             <h1>Novo Registro Financeiro</h1>

@@ -24,7 +24,7 @@ export default function AdministracaoUsuarios() {
   return (
     <div className={styles.container}>
       <div className={styles.card}>
-        <h2 className={styles.title}>Administração de Usuários</h2>
+        <h2 className={styles.cardTitle}>Administração de Usuários</h2>
         <p className={styles.subtitle}>
           Gerencie usuários e suas permissões de acesso no sistema.
         </p>

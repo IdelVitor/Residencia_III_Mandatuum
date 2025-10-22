@@ -1,24 +1,24 @@
 .container {
   min-height: 100vh;
-  background: var(--color-bg); 
+  background: #f6f7ff;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 0rem 1rem 0rem 1rem;
+  padding: 3rem 2rem 
 }
 
 /* ===== Cabeçalho ===== */
 .header {
   text-align: center;
-  margin-bottom: 2.8rem; 
-  margin-top: 0.1; 
+  margin-bottom: 2.2rem;
 }
 
 .header h1 {
   font-size: 2rem;
   font-weight: 800;
-  color: var(--color-primary);
+  color: #4b33e7;
+  margin-bottom: 0.3rem;
 }
 
 .header p {
@@ -30,14 +30,16 @@
 /* ===== Botão "Nova Tarefa" ===== */
 .topActions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-end;  
   width: 100%;
-  max-width: 1000px;
-  margin: -2.2rem 0 2.8rem 0; 
+  max-width: 960px;           
+  margin-top: 1.2rem;
+  margin-bottom: 2.2rem;
+  padding-right: 1rem;        
 }
 
-.newTaskButton {
-  background: var(--color-primary);
+.newActionButton {
+  background: #5e0ef1;
   color: #fff;
   border: none;
   border-radius: 12px;
@@ -46,18 +48,13 @@
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 6px 18px rgba(79, 94, 247, 0.25);
+  box-shadow: 0 6px 18px rgba(94, 14, 241, 0.35);
 }
 
-.newTaskButton:hover {
-  background: var(--color-primary-dark);
+.newActionButton:hover {
+  background: #4b00d4;
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(79, 94, 247, 0.35);
-}
-
-.newTaskButton:active {
-  transform: scale(0.98);
-  box-shadow: 0 4px 10px rgba(79, 94, 247, 0.25);
+  box-shadow: 0 10px 25px rgba(94, 14, 241, 0.45);
 }
 
 /* ===== Colunas de tarefas ===== */

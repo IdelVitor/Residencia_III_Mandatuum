@@ -73,7 +73,7 @@ export default function AcoesPage() {
               </button>
             </div>
 
-            <h2 className={styles.sectionTitle}>Mapas de Ações</h2>
+            <h2 className={styles.cardTitle}>Mapas de Ações</h2>
             <MapaAcoes />
             <GraficosDistribuicao />
             <TabelaBairros />

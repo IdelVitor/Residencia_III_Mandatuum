@@ -17,7 +17,7 @@ export default function AlterarSenha() {
 
   return (
     <div className={styles.card}>
-      <h2 className={styles.title}>Alteração de Senha</h2>
+      <h2 className={styles.cardTitle}>Alteração de Senha</h2>
 
       {/* Senha Atual */}
       <label className={styles.label}>Senha atual</label>
