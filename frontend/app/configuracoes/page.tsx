@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import Link from "next/link"; // ✅ transições sem reload
+import Link from "next/link";  
 import dash from "../dashboard/dashboard.module.css";
 import styles from "./configuracoes.module.css";
 

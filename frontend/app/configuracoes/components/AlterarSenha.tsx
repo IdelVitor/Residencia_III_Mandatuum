@@ -1,85 +1,81 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter, usePathname } from "next/navigation";
-import styles from "../configuracoes.module.css";
-import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
+import styles from "./alterarSenha.module.css";
 
 export default function AlterarSenha() {
-  const router = useRouter();
-  const pathname = usePathname();
+  const [showPassword, setShowPassword] = useState({
+    atual: false,
+    nova: false,
+    confirmar: false,
+  });
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) router.push("/login");
-  }, [router]);
-
-  const [senhaAtual, setSenhaAtual] = useState("");
-  const [novaSenha, setNovaSenha] = useState("");
-  const [confirmarSenha, setConfirmarSenha] = useState("");
-
-  const [mostrarNovaSenha, setMostrarNovaSenha] = useState(false);
-  const [mostrarConfirmar, setMostrarConfirmar] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (novaSenha !== confirmarSenha) {
-      alert("As senhas não coincidem!");
-      return;
-    }
-    alert("Simulação: senha alterada com sucesso!");
-    setSenhaAtual("");
-    setNovaSenha("");
-    setConfirmarSenha("");
+  const toggleVisibility = (field: keyof typeof showPassword) => {
+    setShowPassword((prev) => ({ ...prev, [field]: !prev[field] }));
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <div className={styles.card}>
       <h2 className={styles.subtitle}>Alteração de Senha</h2>
 
+      {/* Senha Atual */}
       <label className={styles.label}>Senha atual</label>
-      <input
-        type="password"
-        className={styles.input}
-        placeholder="Digite sua senha atual"
-        value={senhaAtual}
-        onChange={(e) => setSenhaAtual(e.target.value)}
-        required
-      />
-
-      <label className={styles.label}>Nova Senha</label>
       <div className={styles.passwordWrapper}>
         <input
-          type={mostrarNovaSenha ? "text" : "password"}
+          type={showPassword.atual ? "text" : "password"}
           className={styles.input}
-          placeholder="Digite a nova senha"
-          value={novaSenha}
-          onChange={(e) => setNovaSenha(e.target.value)}
-          required
+          placeholder="Digite sua senha atual"
         />
         <span
-          className={styles.eyeIcon}
-          onClick={() => setMostrarNovaSenha(!mostrarNovaSenha)}
+          className={styles.eyeButton}
+          onClick={() => toggleVisibility("atual")}
         >
-          {mostrarNovaSenha ? <IoMdEyeOff /> : <IoMdEye />}
+          {showPassword.atual ? (
+            <EyeOff className={styles.eyeIcon} />
+          ) : (
+            <Eye className={styles.eyeIcon} />
+          )}
         </span>
       </div>
 
+      {/* Nova Senha */}
+      <label className={styles.label}>Nova Senha</label>
+      <div className={styles.passwordWrapper}>
+        <input
+          type={showPassword.nova ? "text" : "password"}
+          className={styles.input}
+          placeholder="Digite a nova senha"
+        />
+        <span
+          className={styles.eyeButton}
+          onClick={() => toggleVisibility("nova")}
+        >
+          {showPassword.nova ? (
+            <EyeOff className={styles.eyeIcon} />
+          ) : (
+            <Eye className={styles.eyeIcon} />
+          )}
+        </span>
+      </div>
+
+      {/* Confirmar Senha */}
       <label className={styles.label}>Confirmar nova senha</label>
       <div className={styles.passwordWrapper}>
         <input
-          type={mostrarConfirmar ? "text" : "password"}
+          type={showPassword.confirmar ? "text" : "password"}
           className={styles.input}
           placeholder="Confirme a nova senha"
-          value={confirmarSenha}
-          onChange={(e) => setConfirmarSenha(e.target.value)}
-          required
         />
         <span
-          className={styles.eyeIcon}
-          onClick={() => setMostrarConfirmar(!mostrarConfirmar)}
+          className={styles.eyeButton}
+          onClick={() => toggleVisibility("confirmar")}
         >
-          {mostrarConfirmar ? <IoMdEyeOff /> : <IoMdEye />}
+          {showPassword.confirmar ? (
+            <EyeOff className={styles.eyeIcon} />
+          ) : (
+            <Eye className={styles.eyeIcon} />
+          )}
         </span>
       </div>
 
@@ -88,6 +84,6 @@ export default function AlterarSenha() {
           Alterar Senha
         </button>
       </div>
-    </form>
+    </div>
   );
 }
