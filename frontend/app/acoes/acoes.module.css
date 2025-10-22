@@ -1,0 +1,94 @@
+/* Fundo e espaçamento */
+.container {
+  padding: 0rem 1rem 0rem 1rem;
+  background: #f7f8ff;
+  min-height: 100vh;
+}
+
+/* Cabeçalho centralizado */
+.header {
+  text-align: center;
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #4b33e7;
+  margin-bottom: 0.3rem;
+}
+
+.header p {
+  color: #6c6c80;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+/* Botão "Nova Ação" (idêntico ao de “Nova Tarefa”) */
+.topActions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2rem;
+}
+
+.newActionButton {
+  background: #5e0ef1;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 0.9rem 2rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 18px rgba(94, 14, 241, 0.35);
+}
+
+.newActionButton:hover {
+  background: #4b00d4;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(94, 14, 241, 0.45);
+}
+
+/* Título das seções */
+.sectionTitle {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 1.2rem 0;
+  color: #1a1a1a;
+}
+
+/* Tabela estilizada */
+.tabelaWrapper {
+  margin-top: 2rem;
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease-in-out;
+}
+
+.tabela th {
+  background: #5e0ef1;
+  color: #ffffff;
+  text-align: left;
+  padding: 0.8rem 1rem;
+  font-size: 0.95rem;
+}
+
+.tabela td {
+  padding: 0.8rem 1rem;
+  border-top: 1px solid #eee;
+  font-size: 0.9rem;
+}
+
+.tabela tr:hover {
+  background-color: #f9f5ff;
+  transition: background-color 0.2s ease-in-out;
+}

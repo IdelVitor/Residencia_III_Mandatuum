@@ -1,11 +1,6 @@
-/* ======================================= 
-   🗂️ Mandatuum - Gestão de Tarefas (Layout idêntico ao de Configurações)
-   Visual e espaçamento totalmente sincronizados
-======================================= */
-
 .container {
   min-height: 100vh;
-  background: var(--color-bg); /* mesmo fundo do Configurações */
+  background: var(--color-bg); 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,14 +11,14 @@
 /* ===== Cabeçalho ===== */
 .header {
   text-align: center;
-  margin-bottom: 2.8rem; /* igual ao de Configurações */
-  margin-top: 0.2; /* garante mesmo topo */
+  margin-bottom: 2.8rem; 
+  margin-top: 0.1; 
 }
 
 .header h1 {
   font-size: 2rem;
   font-weight: 800;
-  color: var(--color-primary); /* usa a cor principal do tema */
+  color: var(--color-primary);
 }
 
 .header p {
@@ -38,7 +33,7 @@
   justify-content: flex-end;
   width: 100%;
   max-width: 1000px;
-  margin: -2.2rem 0 2.8rem 0; /* posiciona o botão na altura do Configurações */
+  margin: -2.2rem 0 2.8rem 0; 
 }
 
 .newTaskButton {
