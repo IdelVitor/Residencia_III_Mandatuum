@@ -5,12 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="19d0533e-f35a-4ede-864f-525e65f89f53" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/repositories/CoordenadaBairroRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/repositories/CoordenadaBairroRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/repositories/RegistroFinanceiroRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/repositories/RegistroFinanceiroRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/repositories/TarefaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/repositories/TarefaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/repositories/UserAccessLogRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/repositories/UserAccessLogRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/repositories/UserPermissionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/repositories/UserPermissionRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/AcaoRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/AcaoRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/ContatoRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/ContatoRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/CoordenadaBairroRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/CoordenadaBairroRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/RegistroFinanceiroRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/RegistroFinanceiroRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/TarefaRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/TarefaRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/UserAccessLogRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/UserAccessLogRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/UserPermissionRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/UserPermissionRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/AcaoService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/AcaoService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/ContatoService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/ContatoService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/CoordenadaBairroService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/CoordenadaBairroService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/RegistroFinanceiroService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/RegistroFinanceiroService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/TarefaService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/TarefaService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/UserAccessLogService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/UserAccessLogService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/UserPermissionService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/UserPermissionService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +32,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="Security Analysis" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
@@ -38,7 +54,7 @@
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;Spring Boot.ApiApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;lucasgravata&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -50,11 +66,21 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RunManager">
+    <configuration name="ApiApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="api" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.sedem.api.ApiApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26830.84" />
-        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.26830.84" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.25410.129" />
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-IU-251.25410.129" />
       </set>
     </attachedChunks>
   </component>
@@ -68,6 +94,8 @@
       <workItem from="1759847407178" duration="1938000" />
       <workItem from="1760555225034" duration="692000" />
       <workItem from="1760570392233" duration="3164000" />
+      <workItem from="1761072896587" duration="943000" />
+      <workItem from="1761162000499" duration="1377000" />
     </task>
     <servers />
   </component>
