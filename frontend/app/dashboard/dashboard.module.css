@@ -1,41 +1,35 @@
-/* ===================================== 
-   🧭 Mandatuum - Dashboard Moderno
-   Integrado ao tema global
-===================================== */
-
-.shell {
+/* ============================== Layout Global ============================== */
+.dashboardLayout {
   display: flex;
   min-height: 100vh;
-  background: var(--color-bg);
-  font-family: "Inter", "Segoe UI", sans-serif;
-  overflow: hidden;
 }
 
-/* ===== Sidebar (agora fixa) ===== */
+/* Sidebar */
 .sidebar {
   position: fixed;
   top: 0;
   left: 0;
-  height: 100vh;
   width: 250px;
+  height: 100%;
   background: linear-gradient(180deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
-  color: #fff;
+  padding: 1.5rem 1rem;
   display: flex;
   flex-direction: column;
-  padding: 1.5rem 1rem;
   box-shadow: 4px 0 12px rgba(0, 0, 0, 0.08);
+  color: #fff;
   z-index: 100;
 }
 
+/* Título do Menu */
 .menuTitle {
-  font-size: 0.9rem;
+  font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   opacity: 0.85;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
-/* ===== Navegação ===== */
+/* Navegação */
 .nav {
   display: flex;
   flex-direction: column;
@@ -63,7 +57,7 @@
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 
-/* ===== Botão Sair ===== */
+/* Botão Sair */
 .logout {
   margin-top: auto;
   background: rgba(255, 255, 255, 0.1);
@@ -81,7 +75,7 @@
   color: var(--color-primary);
 }
 
-/* ===== Topbar ===== */
+/* Topbar */
 .topbar {
   display: flex;
   justify-content: space-between;
@@ -96,10 +90,10 @@
   z-index: 10;
 }
 
-/* ===== Conteúdo principal ===== */
+/* Conteúdo principal */
 .main {
+  margin-left: 250px; /* Espaço da sidebar */
   flex: 1;
-  margin-left: 250px; /* espaço da sidebar */
   height: 100vh;
   overflow-y: auto;
   background: var(--color-bg);
@@ -111,27 +105,46 @@
   padding: 2rem;
 }
 
+/* Cabeçalho da página */
 .h1 {
-  font-size: 1.8rem;
+  font-size: 2.5rem;
   font-weight: 700;
   color: var(--color-text);
 }
 
 .subtitle {
   color: var(--color-text-light);
-  font-size: 1rem;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
 }
 
-/* ===== Cards ===== */
-.card {
-  background: var(--color-card-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: 1.5rem;
-  box-shadow: var(--shadow-md);
-  transition: transform 0.2s ease;
+/* Estatísticas */
+.statistics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-top: 2rem;
 }
 
-.card:hover {
-  transform: translateY(-4px);
+.statCard {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.statCard h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.statChart {
+  height: 150px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #6b7280;
 }

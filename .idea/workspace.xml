@@ -5,25 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="19d0533e-f35a-4ede-864f-525e65f89f53" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/AcaoRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/AcaoRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/ContatoRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/ContatoRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/CoordenadaBairroRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/CoordenadaBairroRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/RegistroFinanceiroRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/RegistroFinanceiroRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/TarefaRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/TarefaRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/UserAccessLogRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/UserAccessLogRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/UserPermissionRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/UserPermissionRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/AcaoService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/AcaoService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/ContatoService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/ContatoService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/CoordenadaBairroService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/CoordenadaBairroService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/RegistroFinanceiroService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/RegistroFinanceiroService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/TarefaService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/TarefaService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/UserAccessLogService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/UserAccessLogService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/UserPermissionService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/UserPermissionService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/dashboard/dashboard.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/dashboard/dashboard.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/dashboard/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/dashboard/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/dashboard/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/dashboard/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,6 +82,7 @@
       <workItem from="1760570392233" duration="3164000" />
       <workItem from="1761072896587" duration="943000" />
       <workItem from="1761162000499" duration="1377000" />
+      <workItem from="1761254951199" duration="1885000" />
     </task>
     <servers />
   </component>
