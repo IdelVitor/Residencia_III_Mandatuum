@@ -51,7 +51,7 @@ export default function NovaTarefa() {
       if (!response.ok) throw new Error(`Erro ao salvar tarefa (${response.status})`);
 
       const data = await response.json();
-      alert("✅ Tarefa cadastrada com sucesso!");
+      alert("Tarefa cadastrada com sucesso!");
       console.log("Nova tarefa salva:", data);
 
       // Limpa o formulário
@@ -69,7 +69,7 @@ export default function NovaTarefa() {
       router.push("/gestaoDeTarefas");
     } catch (err) {
       console.error(err);
-      alert("❌ Ocorreu um erro ao cadastrar a tarefa.");
+      alert("Ocorreu um erro ao cadastrar a tarefa.");
     } finally {
       setLoading(false);
     }
