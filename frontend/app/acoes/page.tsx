@@ -30,6 +30,7 @@ export default function AcoesPage() {
 
   return (
     <div className={dash.shell}>
+      {/* Sidebar lateral */}
       <aside className={dash.sidebar}>
         <div className={dash.menuTitle}>Menu Principal</div>
         <nav className={dash.nav}>
@@ -45,6 +46,7 @@ export default function AcoesPage() {
             </Link>
           ))}
         </nav>
+
         <button
           className={dash.logout}
           onClick={() => {
@@ -56,28 +58,40 @@ export default function AcoesPage() {
         </button>
       </aside>
 
+      {/* Conteúdo principal */}
       <div className={dash.main}>
-        <main className={dash.content}>
-          <div className={styles.container}>
-            <div className={styles.header}>
-              <h1>Ações</h1>
-              <p>Visualize e gerencie as ações realizadas</p>
-            </div>
-
-            <div className={styles.topActions}>
-              <button
-                className={styles.newActionButton}
-                onClick={() => router.push("/acoes/novaAcao")}
-              >
-                Nova Ação
-              </button>
-            </div>
-
-            <h2 className={styles.cardTitle}>Mapas de Ações</h2>
-            <MapaAcoes />
-            <GraficosDistribuicao />
-            <TabelaBairros />
+        <main className={`${dash.content} ${styles.container}`}>
+          {/* Cabeçalho */}
+          <div className={styles.header}>
+            <h1>Ações</h1>
+            <p>Visualize e gerencie as ações realizadas</p>
           </div>
+
+          {/* Botão Nova Ação */}
+          <div className={styles.topActions}>
+            <button
+              className={styles.newActionButton}
+              onClick={() => router.push("/acoes/novaAcao")}
+            >
+              Nova Ação
+            </button>
+          </div>
+
+          {/* Seções */}
+          <section className={styles.section}>
+            <h2 className={styles.cardTitle}>Mapa de Ações</h2>
+            <MapaAcoes />
+          </section>
+
+          <section className={styles.section}>
+            <h2 className={styles.cardTitle}>Distribuição</h2>
+            <GraficosDistribuicao />
+          </section>
+
+          <section className={styles.section}>
+            <h2 className={styles.cardTitle}>Ações por Bairro</h2>
+            <TabelaBairros />
+          </section>
         </main>
       </div>
     </div>

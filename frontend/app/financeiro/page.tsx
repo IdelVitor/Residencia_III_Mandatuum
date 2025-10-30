@@ -84,11 +84,9 @@ export default function FinanceiroPage() {
       <div className={dash.main}>
         <main className={`${dash.content} ${styles.page}`}>
           {/* Cabeçalho da página (igual Configurações) */}
-          <div className={styles.pageHeader}>
-            <h1 className={styles.pageTitle}>Financeiro</h1>
-            <p className={styles.pageSubtitle}>
-              Gerencie as configurações financeiras do sistema.
-            </p>
+          <div className={styles.header}>
+            <h1>Financeiro</h1>
+            <p>Gerencie as configurações financeiras do sistema</p>
           </div>
 
           <div className={styles.topActions}>
