@@ -27,7 +27,6 @@ export default function ConfiguracoesPage() {
     { name: "Dashboard", path: "/dashboard" },
     { name: "Ações", path: "/acoes" },
     { name: "Gestão de Tarefas", path: "/gestaoDeTarefas" },
-    { name: "Cadastro", path: "/cadastro" },
     { name: "Financeiro", path: "/financeiro" },
     { name: "Eleições 2026", path: "/eleicoes-2026" },
     { name: "Configurações", path: "/configuracoes" },
