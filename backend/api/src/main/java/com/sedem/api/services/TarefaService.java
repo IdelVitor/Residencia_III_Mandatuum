@@ -1,6 +1,8 @@
 package com.sedem.api.services;
 
+import com.sedem.api.models.StatusTarefa;
 import com.sedem.api.models.Tarefa;
+import com.sedem.api.dto.TarefaListDTO;
 import com.sedem.api.repositories.TarefaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,12 @@ public class TarefaService {
         return tarefaRepository.findById(id);
     }
 
+    public List<TarefaListDTO> listLite() {
+        return tarefaRepository.findAll().stream()
+                .map(t -> new TarefaListDTO(t.getId(), t.getTitulo(), t.getDescricao(), t.getStatus()))
+                .toList();
+    }
+
     public Tarefa update(Long id, Tarefa tarefaAtualizada) {
         return tarefaRepository.findById(id).map(tarefa -> {
             tarefa.setTitulo(tarefaAtualizada.getTitulo());
@@ -34,6 +42,13 @@ public class TarefaService {
             tarefa.setPrioridade(tarefaAtualizada.getPrioridade());
             tarefa.setResponsavel(tarefaAtualizada.getResponsavel());
             return tarefaRepository.save(tarefa);
+        }).orElseThrow(() -> new RuntimeException("Tarefa não encontrada"));
+    }
+
+    public Tarefa updateStatus(Long id, String novoStatus) {
+        return tarefaRepository.findById(id).map(t -> {
+            t.setStatus(StatusTarefa.valueOf(novoStatus));
+            return tarefaRepository.save(t);
         }).orElseThrow(() -> new RuntimeException("Tarefa não encontrada"));
     }
 

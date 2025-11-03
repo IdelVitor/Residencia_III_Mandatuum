@@ -5,25 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="19d0533e-f35a-4ede-864f-525e65f89f53" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/config/CorsConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/dto/TarefaListDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/AcaoRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/AcaoRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/ContatoRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/ContatoRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/CoordenadaBairroRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/CoordenadaBairroRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/RegistroFinanceiroRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/RegistroFinanceiroRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/TarefaRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/TarefaRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/UserAccessLogRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/UserAccessLogRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/UserPermissionRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/repositories/UserPermissionRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/AcaoService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/AcaoService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/ContatoService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/ContatoService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/CoordenadaBairroService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/CoordenadaBairroService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/RegistroFinanceiroService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/RegistroFinanceiroService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/controllers/TarefaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/controllers/TarefaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/services/TarefaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/services/TarefaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/controllers/TarefaController.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/controllers/TarefaController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/TarefaService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/TarefaService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/UserAccessLogService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/UserAccessLogService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/UserPermissionService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/UserPermissionService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/gestaoDeTarefas/novaTarefa/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/gestaoDeTarefas/novaTarefa/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/gestaoDeTarefas/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/gestaoDeTarefas/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +24,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="Security Analysis" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
@@ -44,28 +34,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;Spring Boot.ApiApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.ApiApplication.executor": "Run",
+    "git-widget-placeholder": "lucasgravata",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "to.speed.mode.migration.done": "true",
+    "ts.external.directory.path": "C:\\Users\\Lucas\\IdeaProjects\\Residencia_III_Mandatuum\\frontend\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="ApiApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
