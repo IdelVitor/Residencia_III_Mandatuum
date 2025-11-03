@@ -66,7 +66,7 @@ export default function NovaTarefa() {
       });
 
       // Redireciona de volta à tela principal
-      router.push("/gestao-de-tarefas");
+      router.push("/gestaoDeTarefas");
     } catch (err) {
       console.error(err);
       alert("❌ Ocorreu um erro ao cadastrar a tarefa.");
