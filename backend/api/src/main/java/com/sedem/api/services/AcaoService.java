@@ -1,5 +1,6 @@
 package com.sedem.api.services;
 
+import com.sedem.api.dto.AcaoListDTO;
 import com.sedem.api.models.Acao;
 import com.sedem.api.repositories.AcaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,15 @@ public class AcaoService {
 
     public Optional<Acao> findById(Long id) {
         return acaoRepository.findById(id);
+    }
+
+    public List<AcaoListDTO> listLite() {
+        return acaoRepository.findAll().stream()
+                .map(a -> new AcaoListDTO(
+                        a.getId(), a.getTitulo(), a.getDescricao(),
+                        a.getTipo(), a.getData(), a.getCidade(), a.getBairro()
+                ))
+                .toList();
     }
 
     public Acao update(Long id, Acao acaoAtualizada) {

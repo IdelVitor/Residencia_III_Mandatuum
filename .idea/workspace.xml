@@ -5,15 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="19d0533e-f35a-4ede-864f-525e65f89f53" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/config/CorsConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/dto/TarefaListDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/dto/AcaoListDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/controllers/TarefaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/controllers/TarefaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/services/TarefaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/services/TarefaService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/controllers/TarefaController.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/controllers/TarefaController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/TarefaService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/services/TarefaService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/app/gestaoDeTarefas/novaTarefa/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/gestaoDeTarefas/novaTarefa/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/app/gestaoDeTarefas/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/gestaoDeTarefas/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/controllers/AcaoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/controllers/AcaoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/services/AcaoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/services/AcaoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/acoes/novaAcao/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/acoes/novaAcao/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/acoes/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/acoes/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,29 +31,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "Spring Boot.ApiApplication.executor": "Run",
-    "git-widget-placeholder": "lucasgravata",
-    "junie.onboarding.icon.badge.shown": "true",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "to.speed.mode.migration.done": "true",
-    "ts.external.directory.path": "C:\\Users\\Lucas\\IdeaProjects\\Residencia_III_Mandatuum\\frontend\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.ApiApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;lucasgravata&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Lucas\\IdeaProjects\\Residencia_III_Mandatuum\\frontend\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="ApiApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
@@ -70,8 +67,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.25410.129" />
-        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-IU-251.25410.129" />
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26830.84" />
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.26830.84" />
       </set>
     </attachedChunks>
   </component>
@@ -87,6 +84,8 @@
       <workItem from="1760570392233" duration="3164000" />
       <workItem from="1761072896587" duration="943000" />
       <workItem from="1761162000499" duration="1377000" />
+      <workItem from="1762208702174" duration="746000" />
+      <workItem from="1762258067221" duration="7020000" />
     </task>
     <servers />
   </component>

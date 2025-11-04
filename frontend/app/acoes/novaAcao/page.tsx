@@ -27,48 +27,76 @@ export default function NovaAcao() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
+      e.preventDefault();
 
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/acoes`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          titulo: form.titulo,
-          descricao: form.descricao,
-          tipo: form.tipo,
-          data: form.data ? form.data + "T00:00:00" : null,
-          municipio: form.municipio,
-          bairro: form.bairro,
-          criarTarefa: form.criarTarefa === "Sim",
-        }),
-      });
+      // Validação simples
+      const titulo = form.titulo.trim();
+      if (!titulo) {
+          alert("Informe um título para a ação.");
+          return;
+      }
 
-      if (!response.ok)
-        throw new Error(`Erro ao salvar ação (${response.status})`);
+      setLoading(true);
+      try {
+          const base = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8082";
 
-      const data = await response.json();
-      alert("Ação cadastrada com sucesso!");
-      console.log("Nova ação salva:", data);
+          // Token e ID do usuário
+          const token =
+              typeof window !== "undefined" ? localStorage.getItem("token") : null;
+          let userId = 1;
+          if (typeof window !== "undefined") {
+              const stored = localStorage.getItem("userId");
+              if (stored && !Number.isNaN(Number(stored))) userId = Number(stored);
+          }
 
-      setForm({
-        titulo: "",
-        descricao: "",
-        tipo: "",
-        data: "",
-        municipio: "",
-        bairro: "",
-        criarTarefa: "Não",
-      });
+          const headers: Record<string, string> = {
+              "Content-Type": "application/json",
+          };
+          if (token) headers.Authorization = `Bearer ${token}`;
 
-      router.push("/acoes");
-    } catch (err) {
-      console.error(err);
-      alert("❌ Ocorreu um erro ao cadastrar a ação.");
-    } finally {
-      setLoading(false);
-    }
+          // Corpo da requisição (campos ajustados para o backend)
+          const body = {
+              titulo,
+              descricao: form.descricao.trim() || null,
+              tipo: form.tipo.trim() || null,
+              data: form.data ? `${form.data}T00:00:00` : null,
+              cidade: form.municipio.trim() || null, // campo correto no model
+              bairro: form.bairro.trim() || null,
+              usuario: { id: userId }, // ManyToOne obrigatório
+          };
+
+          const res = await fetch(`${base}/acoes`, {
+              method: "POST",
+              headers,
+              body: JSON.stringify(body),
+          });
+
+          if (!res.ok) {
+              const txt = await res.text().catch(() => "");
+              console.error("POST /acoes FAILED:", res.status, txt);
+              alert(`❌ Falha ao cadastrar (HTTP ${res.status}).\n${txt.substring(0, 400)}`);
+              return;
+          }
+
+          // Sucesso → limpa o formulário e redireciona
+          setForm({
+              titulo: "",
+              descricao: "",
+              tipo: "",
+              data: "",
+              municipio: "",
+              bairro: "",
+              criarTarefa: "Não",
+          });
+
+          alert("✅ Ação cadastrada com sucesso!");
+          router.push("/acoes");
+      } catch (err: any) {
+          console.error(err);
+          alert(`❌ Erro inesperado: ${err?.message ?? err}`);
+      } finally {
+          setLoading(false);
+      }
   };
 
   return (

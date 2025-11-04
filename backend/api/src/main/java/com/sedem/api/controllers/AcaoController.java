@@ -1,5 +1,6 @@
 package com.sedem.api.controllers;
 
+import com.sedem.api.dto.AcaoListDTO;
 import com.sedem.api.models.Acao;
 import com.sedem.api.services.AcaoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,11 @@ public class AcaoController {
     public Acao findById(@PathVariable Long id) {
         return acaoService.findById(id)
                 .orElseThrow(() -> new RuntimeException("Ação não encontrada"));
+    }
+
+    @GetMapping("/list")
+    public List<AcaoListDTO> list() {
+        return acaoService.listLite();
     }
 
     @PutMapping("/{id}")
