@@ -1,5 +1,6 @@
 package com.sedem.api.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,21 +42,22 @@ public class Usuario {
     @PrePersist
     public void prePersist() {
         if (this.atualizadoEm == null) {
-            this.atualizadoEm = LocalDateTime.now();  // Definindo a data de criação
+            this.atualizadoEm = LocalDateTime.now();
         }
     }
 
     @PreUpdate
     public void preUpdate() {
-        this.atualizadoEm = LocalDateTime.now();  // Sempre que o usuário for atualizado, o campo será atualizado com o timestamp atual
+        this.atualizadoEm = LocalDateTime.now();
     }
 
     // Relações
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Contato> contatos;
+    @JsonBackReference
+    private List<Acao> acoes;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Acao> acoes;
+    private List<Contato> contatos;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tarefa> tarefas;
