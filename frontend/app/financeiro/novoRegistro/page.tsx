@@ -19,7 +19,6 @@ export default function NovoRegistroFinanceiro() {
     { name: "Dashboard", path: "/dashboard" },
     { name: "Ações", path: "/acoes" },
     { name: "Gestão de Tarefas", path: "/gestaoDeTarefas" },
-    { name: "Cadastro", path: "/cadastro" },
     { name: "Financeiro", path: "/financeiro" },
     { name: "Eleições 2026", path: "/eleicao" },
     { name: "Configurações", path: "/configuracoes" },

@@ -27,20 +27,7 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        String path = request.getRequestURI();
-        System.out.println("🔎 Interceptando rota: " + path);
-
-        // 🚀 Ignora rotas públicas
-        if (path.startsWith("/auth") ||
-                path.startsWith("/swagger") ||
-                path.startsWith("/v3/api-docs") ||
-                path.startsWith("/acoes") ||
-                path.startsWith("/tarefas") ||
-                path.startsWith("/contatos")) {
-            System.out.println("✅ Ignorando filtro para rota pública: " + path);
-            filterChain.doFilter(request, response);
-            return;
-        }
+        System.out.println("🔎 Interceptando rota: " + request.getRequestURI());
 
         final String authorizationHeader = request.getHeader("Authorization");
         String email = null;

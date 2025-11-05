@@ -16,7 +16,7 @@ export default function DashboardPage() {
     if (!token) router.push("/login");
   }, [router]);
 
-  const menuItems = [
+ const menuItems = [
     { name: "Dashboard", path: "/dashboard" },
     { name: "Ações", path: "/acoes" },
     { name: "Gestão de Tarefas", path: "/gestaoDeTarefas" },

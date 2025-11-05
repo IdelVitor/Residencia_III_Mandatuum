@@ -1,5 +1,6 @@
 package com.sedem.api.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -16,7 +17,7 @@ public class Acao {
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
-    @JsonManagedReference
+    @JsonBackReference
     private Usuario usuario;
 
     private String titulo;
