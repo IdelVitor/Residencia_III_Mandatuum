@@ -1,11 +1,15 @@
 export const metadata = {
-    title: "Dashboard",
+  title: "Dashboard",
 };
 
 export default function DashboardLayout({
-                                            children,
-                                        }: {
-    children: React.ReactNode;
+  children,
+}: {
+  children: React.ReactNode;
 }) {
-    return <>{children}</>;
+  return (
+    <div className="dashboardLayout">
+      <main className="mainContainer">{children}</main>
+    </div>
+  );
 }

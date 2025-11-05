@@ -21,7 +21,7 @@ export default function NovoRegistroFinanceiro() {
     { name: "Gestão de Tarefas", path: "/gestaoDeTarefas" },
     { name: "Cadastro", path: "/cadastro" },
     { name: "Financeiro", path: "/financeiro" },
-    { name: "Eleições 2026", path: "/eleicoes-2026" },
+    { name: "Eleições 2026", path: "/eleicao" },
     { name: "Configurações", path: "/configuracoes" },
   ];
 

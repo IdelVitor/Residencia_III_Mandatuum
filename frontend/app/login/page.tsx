@@ -37,10 +37,14 @@ export default function LoginPage() {
     }
   };
 
+  console.log(
+      "Minha API URL:",
+      process.env.NEXT_PUBLIC_API_URL
+    );
+
   return (
       <div className={styles.bg}>
         <div className={styles.brand}>Mandatuum</div>
-
         <section className={styles.card}>
           <h1 className={styles.title}>Login</h1>
 

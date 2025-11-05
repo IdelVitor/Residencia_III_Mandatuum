@@ -19,9 +19,8 @@ export default function FinanceiroPage() {
     { name: "Dashboard", path: "/dashboard" },
     { name: "Ações", path: "/acoes" },
     { name: "Gestão de Tarefas", path: "/gestaoDeTarefas" },
-    { name: "Cadastro", path: "/cadastro" },
     { name: "Financeiro", path: "/financeiro" },
-    { name: "Eleições 2026", path: "/eleicoes-2026" },
+    { name: "Eleições 2026", path: "/eleicao" },
     { name: "Configurações", path: "/configuracoes" },
   ];
 
@@ -84,11 +83,9 @@ export default function FinanceiroPage() {
       <div className={dash.main}>
         <main className={`${dash.content} ${styles.page}`}>
           {/* Cabeçalho da página (igual Configurações) */}
-          <div className={styles.pageHeader}>
-            <h1 className={styles.pageTitle}>Financeiro</h1>
-            <p className={styles.pageSubtitle}>
-              Gerencie as configurações financeiras do sistema.
-            </p>
+          <div className={styles.header}>
+            <h1>Financeiro</h1>
+            <p>Gerencie as configurações financeiras do sistema</p>
           </div>
 
           <div className={styles.topActions}>
