@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/acoes")
@@ -44,5 +45,19 @@ public class AcaoController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         acaoService.delete(id);
+    }
+
+    // 🔹 Estatísticas por bairro
+    @GetMapping("/estatisticas")
+    public Map<String, Object> getEstatisticas() {
+        return acaoService.getEstatisticas();
+    }
+
+    // 🔹 Novo endpoint: estatísticas por cidade e bairro
+    @GetMapping("/por-cidade-bairro")
+    public List<Map<String, Object>> listarPorCidadeEBairro() {
+        List<Map<String, Object>> lista = acaoService.getAcoesPorCidadeEBairro();
+        System.out.println("📊 Ações por cidade e bairro: " + lista);
+        return lista;
     }
 }

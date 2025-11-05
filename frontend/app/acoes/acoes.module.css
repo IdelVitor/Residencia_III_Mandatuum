@@ -1,100 +1,215 @@
-/* Fundo e espaçamento */
+/* ========= Tema & Container ========= */
+:root {
+  --brand: #5e0ef1;
+  --brand-2: #7a34ff;
+  --bg: #f6f7ff;
+  --ink: #0f172a;
+  --muted: #6c6c80;
+  --card: #ffffff;
+  --ring: rgba(94, 14, 241, 0.25);
+  --shadow: 0 14px 30px rgba(24, 24, 40, 0.08);
+}
+
 .container {
-  background: #f6f7ff;
+  background: var(--bg);
   min-height: 100vh;
-  padding: 1rem 2rem;
+  padding: 1.5rem 2rem 3rem;
   display: flex;
   flex-direction: column;
+  gap: 1.5rem;
 }
 
-/* Cabeçalho centralizado */
-.header {
-  text-align: center;
-  margin-bottom: 2.2rem;
+/* ========= Header ========= */
+.headerRow {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 1rem;
+  margin-bottom: .25rem;
 }
 
-.header h1 {
+.title {
   font-size: 2rem;
-  font-weight: 800;
-  color: #4b33e7;
-  margin-bottom: 0.3rem;
+  font-weight: 900;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  margin: 0;
 }
 
-.header p {
-  color: #6c6c80;
-  font-size: 1rem;
-  font-weight: 400;
+.subtitle {
+  margin-top: .25rem;
+  color: var(--muted);
+  font-size: .98rem;
 }
 
-/* Botão "Nova Ação" (idêntico ao de “Nova Tarefa”) */
-.topActions {
+.actionsRight {
   display: flex;
-  justify-content: flex-end;  
-  width: 100%;
-  max-width: 960px;           
-  margin-top: 1.2rem;
-  margin-bottom: 2.2rem;
-  padding-right: 1rem;        
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .newActionButton {
-  background: #5e0ef1;
+  background: var(--brand);
   color: #fff;
   border: none;
-  border-radius: 12px;
-  padding: 0.9rem 2rem;
-  font-weight: 600;
-  font-size: 1rem;
+  border-radius: 14px;
+  padding: 0.9rem 1.25rem;
+  font-weight: 700;
+  font-size: .98rem;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 6px 18px rgba(94, 14, 241, 0.35);
+  box-shadow: 0 10px 24px rgba(94, 14, 241, 0.35);
+  transition: transform .15s ease, box-shadow .15s ease, background .2s ease;
 }
-
 .newActionButton:hover {
-  background: #4b00d4;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(94, 14, 241, 0.45);
+  background: var(--brand-2);
+  transform: translateY(-1px);
+  box-shadow: 0 16px 30px rgba(94, 14, 241, 0.45);
 }
 
-/* Título das seções */
-.cardTitle {        
-  font-size: 1.5rem;          
-  font-weight: 800;            
-  color: #0f172a;              
-  margin-bottom: 1.5rem;       
+/* ========= Cards & Grids ========= */
+.card {
+  background: var(--card);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(94, 14, 241, 0.08);
+  overflow: hidden;
+}
+
+.cardTitle {
+  padding: 1rem 1.25rem 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--ink);
   letter-spacing: -0.01em;
 }
 
-/* Tabela estilizada */
-.tabelaWrapper {
-  margin-top: 2rem;
+.cardBody {
+  padding: 1rem 1.25rem 1.25rem;
 }
 
-.tabela {
-  width: 100%;
-  border-collapse: collapse;
-  background: #ffffff;
+.gridTwo {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 1100px) {
+  .gridTwo {
+    grid-template-columns: 1.1fr 0.9fr; /* mapa maior que gráficos */
+  }
+}
+
+.mapCard {
+  /* altura definida pelo componente; aqui só mantém coesão visual */
+}
+
+/* ========= Seções ========= */
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin-top: .5rem;
+}
+.sectionTitle {
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: var(--ink);
+  margin: .5rem 0;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 .6rem;
+  border-radius: 999px;
+  background: rgba(94,14,241,.08);
+  color: var(--brand);
+  font-weight: 700;
+  font-size: .85rem;
+}
+
+/* ========= Lista de Ações ========= */
+.actionsGrid {
+  margin-top: .25rem;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+
+.actionTitle {
+  margin: 0;
+  font-weight: 900;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  font-size: 1.08rem;
+}
+
+.actionDesc {
+  margin: .5rem 0 .75rem;
+  color: #293042;
+  line-height: 1.45;
+  font-size: .95rem;
+}
+
+.metaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem .6rem;
+  align-items: center;
+}
+.metaItem {
+  font-size: .88rem;
+  color: #344055;
+  background: #f3f2ff;
+  border: 1px solid rgba(94, 14, 241, 0.1);
+  padding: .25rem .55rem;
+  border-radius: 999px;
+}
+.metaPill {
+  font-size: .78rem;
+  font-weight: 800;
+  color: #fff;
+  background: var(--brand);
+  padding: .28rem .55rem;
+  border-radius: 999px;
+  letter-spacing: .02em;
+  box-shadow: 0 6px 12px var(--ring);
+}
+
+/* ========= Estados ========= */
+.skeleton {
+  height: 140px;
+  background: linear-gradient(90deg, #f1efff, #ffffff, #f1efff);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite linear;
+  border: 1px solid rgba(94, 14, 241, 0.06);
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.errorBox {
+  margin-top: .75rem;
+  padding: .9rem 1rem;
   border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: all 0.2s ease-in-out;
+  background: #fff1f1;
+  border: 1px solid #ffd6d6;
+  color: #a40000;
+  font-weight: 600;
 }
 
-.tabela th {
-  background: #5e0ef1;
-  color: #ffffff;
-  text-align: left;
-  padding: 0.8rem 1rem;
-  font-size: 0.95rem;
+.emptyState {
+  margin-top: .2rem;
+  padding: 1rem 1.25rem;
+  color: var(--muted);
+  background: #fff;
+  border: 1px dashed rgba(94, 14, 241, 0.25);
+  border-radius: 14px;
 }
 
-.tabela td {
-  padding: 0.8rem 1rem;
-  border-top: 1px solid #eee;
-  font-size: 0.9rem;
-}
-
-.tabela tr:hover {
-  background-color: #f9f5ff;
-  transition: background-color 0.2s ease-in-out;
-}
+/* ========= Tabela (usa o componente existente) ========= */
+.tabelaWrapper { margin-top: .25rem; }
+.tabela { width: 100%; border-collapse: collapse; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); }
+.tabela th { background: var(--brand); color: #ffffff; text-align: left; padding: .9rem 1rem; font-size: .95rem; }
+.tabela td { padding: .85rem 1rem; border-top: 1px solid #eee; font-size: .92rem; }
+.tabela tr:hover { background-color: #f9f5ff; transition: background-color .2s ease-in-out; }

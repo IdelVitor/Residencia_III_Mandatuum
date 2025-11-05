@@ -1,5 +1,6 @@
 package com.sedem.api.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDateTime;
@@ -15,6 +16,7 @@ public class Acao {
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
+    @JsonManagedReference
     private Usuario usuario;
 
     private String titulo;
@@ -30,7 +32,6 @@ public class Acao {
     @Column(name = "criado_em")
     private LocalDateTime criadoEm = LocalDateTime.now();
 
-    // Relacionamento opcional com contato
     @ManyToOne
     @JoinColumn(name = "contato_id")
     private Contato contato;
