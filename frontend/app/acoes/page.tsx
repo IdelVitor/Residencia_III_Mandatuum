@@ -8,6 +8,7 @@ import styles from "./acoes.module.css";
 
 import MapaAcoes from "./components/MapaAcoes";
 import TabelaBairros from "./components/TabelaBairros";
+import { ChatWidget } from "../components/ChatWidget";
 
 type Acao = {
   id: number;
@@ -37,12 +38,9 @@ export default function AcoesPage() {
   useEffect(() => {
     (async () => {
       try {
-        const base =
-          process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8082";
+        const base = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8082";
         const token =
-          typeof window !== "undefined"
-            ? localStorage.getItem("token")
-            : null;
+          typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
         const headers: Record<string, string> = {
           "Content-Type": "application/json",
@@ -54,9 +52,7 @@ export default function AcoesPage() {
         if (!res.ok) throw new Error(`GET /acoes -> ${res.status}`);
 
         const json = await res.json();
-        const data: Acao[] = Array.isArray(json)
-          ? json
-          : json?.content ?? [];
+        const data: Acao[] = Array.isArray(json) ? json : json?.content ?? [];
 
         setAcoes(data);
       } catch (e: any) {
@@ -155,7 +151,10 @@ export default function AcoesPage() {
             {loading && (
               <div className={styles.actionsGrid}>
                 {Array.from({ length: 6 }).map((_, i) => (
-                  <div key={i} className={`${styles.card} ${styles.skeleton}`} />
+                  <div
+                    key={i}
+                    className={`${styles.card} ${styles.skeleton}`}
+                  />
                 ))}
               </div>
             )}
@@ -213,9 +212,11 @@ export default function AcoesPage() {
               </>
             )}
           </div>
+          <div>
+            <ChatWidget />
+          </div>
         </main>
       </div>
     </div>
   );
 }
-  

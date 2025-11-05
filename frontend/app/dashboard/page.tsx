@@ -2,10 +2,19 @@
 
 import { useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import Link from "next/link"; 
+import Link from "next/link";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from "recharts";
 import styles from "./dashboard.module.css";
+import { ChatWidget } from "../components/ChatWidget";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -16,7 +25,7 @@ export default function DashboardPage() {
     if (!token) router.push("/login");
   }, [router]);
 
- const menuItems = [
+  const menuItems = [
     { name: "Dashboard", path: "/dashboard" },
     { name: "Ações", path: "/acoes" },
     { name: "Gestão de Tarefas", path: "/gestaoDeTarefas" },
@@ -29,7 +38,7 @@ export default function DashboardPage() {
   const statusData = [
     { name: "Concluídas", value: 60 },
     { name: "Em andamento", value: 25 },
-    { name: "Atrasadas", value: 15 }
+    { name: "Atrasadas", value: 15 },
   ];
 
   const totalTasksData = [
@@ -104,7 +113,14 @@ export default function DashboardPage() {
               <h3>Status de Tarefas</h3>
               <ResponsiveContainer width="100%" height={200}>
                 <PieChart>
-                  <Pie data={statusData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80}>
+                  <Pie
+                    data={statusData}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={80}
+                  >
                     <Cell fill="#4f46e5" />
                     <Cell fill="#6366f1" />
                     <Cell fill="#a78bfa" />
@@ -155,6 +171,9 @@ export default function DashboardPage() {
               </ResponsiveContainer>
             </div>
           </section>
+          <div>
+            <ChatWidget />
+          </div>
         </main>
       </div>
     </div>

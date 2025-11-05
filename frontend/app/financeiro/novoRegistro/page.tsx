@@ -5,6 +5,7 @@ import Link from "next/link";
 import dash from "../../dashboard/dashboard.module.css";
 import styles from "./novoRegistro.module.css";
 import { useEffect } from "react";
+import { ChatWidget } from "../../components/ChatWidget";
 
 export default function NovoRegistroFinanceiro() {
   const router = useRouter();
@@ -124,6 +125,9 @@ export default function NovoRegistroFinanceiro() {
               </button>
             </div>
           </form>
+          <div>
+            <ChatWidget />
+          </div>
         </main>
       </div>
     </div>

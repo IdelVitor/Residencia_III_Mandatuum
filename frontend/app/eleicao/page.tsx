@@ -4,7 +4,8 @@ import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import dash from "../dashboard/dashboard.module.css";
 import { useState, useMemo } from "react";
-import tabela from "./tabela.module.css"; 
+import tabela from "./tabela.module.css";
+import { ChatWidget } from "../components/ChatWidget";
 
 type ResultadoBairro = {
   bairro: string;
@@ -107,6 +108,9 @@ export default function EleicaoPage() {
                 ))}
               </tbody>
             </table>
+          </div>
+          <div>
+            <ChatWidget />
           </div>
         </main>
       </div>

@@ -5,6 +5,7 @@ import Link from "next/link";
 import dash from "../dashboard/dashboard.module.css";
 import styles from "./financeiro.module.css";
 import { useEffect } from "react";
+import { ChatWidget } from "../components/ChatWidget";
 
 export default function FinanceiroPage() {
   const router = useRouter();
@@ -133,6 +134,9 @@ export default function FinanceiroPage() {
                 ))}
               </tbody>
             </table>
+          </div>
+          <div>
+            <ChatWidget />
           </div>
         </main>
       </div>

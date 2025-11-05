@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import Link from "next/link";  
+import Link from "next/link";
 import dash from "../dashboard/dashboard.module.css";
 import styles from "./configuracoes.module.css";
 
@@ -10,6 +10,7 @@ import styles from "./configuracoes.module.css";
 import AlterarSenha from "./components/AlterarSenha";
 import CadastroUsuario from "./components/CadastroUsuario";
 import AdministracaoUsuarios from "./components/AdministracaoUsuarios";
+import { ChatWidget } from "../components/ChatWidget";
 
 export default function ConfiguracoesPage() {
   const router = useRouter();
@@ -107,6 +108,9 @@ export default function ConfiguracoesPage() {
             {abaAtiva === "senha" && <AlterarSenha />}
             {abaAtiva === "cadastro" && <CadastroUsuario />}
             {abaAtiva === "admin" && <AdministracaoUsuarios />}
+          </div>
+          <div>
+            <ChatWidget />
           </div>
         </main>
       </div>
