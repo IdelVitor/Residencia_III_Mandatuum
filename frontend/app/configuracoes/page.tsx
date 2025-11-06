@@ -21,7 +21,6 @@ export default function ConfiguracoesPage() {
     if (!token) router.push("/login");
   }, [router]);
 
-  // Estado que controla a aba ativa
   const [abaAtiva, setAbaAtiva] = useState("senha");
 
   const menuItems = [
@@ -68,11 +67,11 @@ export default function ConfiguracoesPage() {
       <div className={dash.main}>
         <main className={dash.content}>
           <div className={styles.container}>
-            {/* Cabeçalho */}
-            <div className={styles.header}>
+            {/* Cabeçalho atualizado */}
+            <header className={styles.header}>
               <h1>Configurações</h1>
               <p>Gerencie suas configurações de usuário</p>
-            </div>
+            </header>
 
             {/* Tabs de navegação */}
             <div className={styles.tabs}>
@@ -109,9 +108,8 @@ export default function ConfiguracoesPage() {
             {abaAtiva === "cadastro" && <CadastroUsuario />}
             {abaAtiva === "admin" && <AdministracaoUsuarios />}
           </div>
-          <div>
-            <ChatWidget />
-          </div>
+
+          <ChatWidget />
         </main>
       </div>
     </div>

@@ -1,114 +1,146 @@
-/* Fundo e centralização iguais à página de Configurações */
-.page {
-  background: #f6f7ff;
+:root {
+  --brand: #5e0ef1;
+  --brand-2: #7a34ff;
+  --bg: #f4f6ff;
+  --ink: #0f172a;
+  --muted: #6b7280;
+  --card: #ffffff;
+  --shadow: 0 6px 20px rgba(24, 24, 40, 0.06);
+}
+
+/* ===== Layout geral ===== */
+.container {
+  background: var(--bg);
   min-height: 100vh;
-  padding: 3rem 2rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  padding: 0 1.5rem 2rem;
+  gap: 2rem;
 }
 
-/* Cabeçalho da página */
+/* ===== Cabeçalho ===== */
 .header {
-  text-align: center;
-  margin-bottom: 2.2rem;
-}
-
-.header h1 {
-  font-size: 2rem;
-  font-weight: 800;
-  color: #4b33e7;
-  margin-bottom: 0.3rem;
-}
-
-.header p {
-  color: var(--color-text-light);
-  margin-top: 0.4rem;
-  font-size: 1rem;
-}
-
-
-/* Seção: Registros Financeiros */
-.cardTitle {
-  text-align: left;
-  width: 100%;
-  max-width: 960px;         
-  font-size: 1.5rem;          
-  font-weight: 800;            
-  color: #0f172a;              
-  margin-bottom: 1.5rem;       
-  letter-spacing: -0.01em;
-}
-
-/* Botão + Novo Registro */
-.topActions {
   display: flex;
-  justify-content: flex-end;  
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  text-align: center;
   width: 100%;
-  max-width: 960px;           
-  margin-top: 1.2rem;
-  margin-bottom: 2.2rem;
-  padding-right: 1rem;        
+  margin-bottom: 2.5rem;
 }
 
+.headerCenter {
+  flex: 1;
+}
+
+.title {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--ink);
+  margin: 0;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 1rem;
+  margin-top: 0.4rem;
+}
+
+/* ===== Botão ===== */
 .newActionButton {
-  background: #5e0ef1;
+  position: absolute;
+  right: 0;
+  top: 30px;
+  background: var(--brand);
   color: #fff;
   border: none;
   border-radius: 12px;
-  padding: 0.9rem 2rem;
+  padding: 0.9rem 1.8rem;
   font-weight: 600;
-  font-size: 1rem;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 6px 18px rgba(94, 14, 241, 0.35);
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 22px rgba(94, 14, 241, 0.35);
 }
-
 .newActionButton:hover {
-  background: #4b00d4;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(94, 14, 241, 0.45);
+  background: var(--brand-2);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 28px rgba(94, 14, 241, 0.45);
 }
 
-/* Tabela isolada com sombra (sem card) */
+/* ===== Seções ===== */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.sectionTitle {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+/* ===== Tabela ===== */
 .tableWrapper {
+  background: var(--card);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 1rem 1.5rem 1.5rem;
   overflow-x: auto;
   width: 100%;
-  max-width: 960px;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 .table {
   width: 100%;
   border-collapse: collapse;
-  border-radius: 18px;
-  overflow: hidden;
-  background: #ffffff;
-  box-shadow: 0 8px 25px rgba(17, 24, 39, 0.08);
+  border-spacing: 0;
+  font-family: "Inter", "Segoe UI", sans-serif;
+  color: var(--ink);
+  min-width: 900px;
 }
 
-.table th,
-.table td {
-  padding: 1rem;
-  text-align: center;
-  border-bottom: 1px solid #f1f5f9;
-}
-
-.table th {
-  background: #f9fafb;
+/* Cabeçalho */
+.table thead th {
+  background: #eef2ff;
+  color: #0f172a;
   font-weight: 700;
-  color: #374151;
-  font-size: 0.9rem;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.95rem;
+  border-bottom: 2px solid #e2e8f0;
+  white-space: nowrap;
 }
 
-.table td {
+/* Corpo */
+.table tbody td {
+  text-align: center;
+  padding: 0.9rem 1rem;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #f1f5f9;
   color: #1f2937;
 }
 
-.table tr:hover {
-  background: #f9f9ff;
+.table tbody tr:hover {
+  background-color: #f9f9ff;
+  transition: background 0.2s ease-in-out;
 }
 
+/* Total */
 .total {
   font-weight: 700;
-  color: #4f46e5;
+  color: var(--brand);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .table {
+    font-size: 0.85rem;
+    min-width: 650px;
+  }
+  .newActionButton {
+    position: static;
+    margin-top: 1rem;
+    width: 100%;
+  }
 }

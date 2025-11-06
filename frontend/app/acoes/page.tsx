@@ -110,7 +110,7 @@ export default function AcoesPage() {
               </div>
               <button
                 className={styles.newActionButton}
-                onClick={() => router.push("/gestaoDeTarefas/novaTarefa")}
+                onClick={() => router.push("/acoes/novaAcao")}
               >
                 Nova Ação
               </button>
