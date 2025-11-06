@@ -28,13 +28,11 @@ export default function AcoesPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Autenticação
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) router.push("/login");
   }, [router]);
 
-  // Carregar do backend
   useEffect(() => {
     (async () => {
       try {
@@ -74,7 +72,6 @@ export default function AcoesPage() {
 
   return (
     <div className={dash.shell}>
-      {/* Sidebar */}
       <aside className={dash.sidebar}>
         <div className={dash.menuTitle}>Menu Principal</div>
         <nav className={dash.nav}>
@@ -90,7 +87,6 @@ export default function AcoesPage() {
             </Link>
           ))}
         </nav>
-
         <button
           className={dash.logout}
           onClick={() => {
@@ -102,119 +98,74 @@ export default function AcoesPage() {
         </button>
       </aside>
 
-      {/* Conteúdo */}
       <div className={dash.main}>
         <main className={dash.content}>
           <div className={styles.container}>
-            {/* Cabeçalho */}
-            <div className={styles.headerRow}>
-              <div>
+            <header className={styles.header}>
+              <div className={styles.headerCenter}>
                 <h1 className={styles.title}>Ações</h1>
-                <p className={styles.subtitle}>
-                  Visualize e gerencie as ações realizadas
-                </p>
+                  <p className={styles.subtitle}>
+                    Acompanhe, visualize e gerencie todas as ações realizadas 
+                  </p>
               </div>
-              <div className={styles.actionsRight}>
-                <button
-                  className={styles.newActionButton}
-                  onClick={() => router.push("/acoes/novaAcao")}
-                >
-                  Nova Ação
-                </button>
-              </div>
-            </div>
+              <button
+                className={styles.newActionButton}
+                onClick={() => router.push("/gestaoDeTarefas/novaTarefa")}
+              >
+                Nova Ação
+              </button>
+            </header>
 
-            {/* Mapa de Ações */}
-            <section className={styles.card}>
-              <h2 className={styles.cardTitle}>Mapa de Ações</h2>
-              <div className={styles.cardBody}>
+            <section className={styles.section}>
+              <h2 className={styles.sectionTitle}>Mapa de Ações</h2>
+              <div className={styles.mapWrapper}>
                 <MapaAcoes />
               </div>
             </section>
 
-            {/* Pessoas por Bairro */}
-            <section className={styles.card}>
-              <h2 className={styles.cardTitle}>Pessoas por Bairro</h2>
-              <div className={styles.cardBody}>
-                <TabelaBairros />
-              </div>
-            </section>
+            <section className={styles.section}>
+              <h2 className={styles.sectionTitle}>Ações Cadastradas</h2>
+              {loading ? (
+                <p className={styles.loading}>Carregando...</p>
+              ) : error ? (
+                <p className={styles.error}>Erro: {error}</p>
+              ) : acoes.length === 0 ? (
+                <p className={styles.emptyState}>Nenhuma ação cadastrada.</p>
+              ) : (
+                <div className={styles.cardsGrid}>
+                  {acoes.map((acao) => {
+                    const dateStr = acao.data
+                      ? new Date(acao.data).toLocaleDateString("pt-BR")
+                      : "Sem data";
+                    const local = [acao.bairro, acao.cidade]
+                      .filter(Boolean)
+                      .join(", ");
 
-            {/* Ações cadastradas */}
-            <section className={styles.sectionHeader}>
-              <h2 className={styles.sectionTitle}>Ações cadastradas</h2>
-              {!loading && !error && acoes.length > 0 && (
-                <span className={styles.badge}>{acoes.length}</span>
+                    return (
+                      <div key={acao.id} className={styles.card}>
+                        <h3 className={styles.cardTitle}>{acao.titulo}</h3>
+                        {acao.descricao && (
+                          <p className={styles.cardDesc}>{acao.descricao}</p>
+                        )}
+                        <div className={styles.meta}>
+                          <span>📍 {local || "Local não informado"}</span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               )}
             </section>
 
-            {loading && (
-              <div className={styles.actionsGrid}>
-                {Array.from({ length: 6 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className={`${styles.card} ${styles.skeleton}`}
-                  />
-                ))}
+            <section className={styles.section}>
+              <h2 className={styles.sectionTitle}>Pessoas por Bairro</h2>
+              <div className={styles.tableWrapper}>
+                <TabelaBairros />
               </div>
-            )}
-
-            {error && <div className={styles.errorBox}>Erro: {error}</div>}
-
-            {!loading && !error && (
-              <>
-                {acoes.length === 0 ? (
-                  <div className={styles.emptyState}>
-                    Nenhuma ação cadastrada ainda.
-                  </div>
-                ) : (
-                  <div className={styles.actionsGrid}>
-                    {acoes.map((a) => {
-                      const dateStr = a.data
-                        ? new Date(a.data).toLocaleDateString("pt-BR")
-                        : null;
-                      const local = [a.bairro, a.cidade]
-                        .filter(Boolean)
-                        .join(", ");
-
-                      return (
-                        <div key={a.id} className={styles.card}>
-                          <div className={styles.cardBody}>
-                            <h3 className={styles.actionTitle}>{a.titulo}</h3>
-
-                            {a.descricao && (
-                              <p className={styles.actionDesc}>{a.descricao}</p>
-                            )}
-
-                            <div className={styles.metaRow}>
-                              {a.tipo && (
-                                <span className={styles.metaPill}>
-                                  {a.tipo}
-                                </span>
-                              )}
-                              {dateStr && (
-                                <span className={styles.metaItem}>
-                                  📅 {dateStr}
-                                </span>
-                              )}
-                              {local && (
-                                <span className={styles.metaItem}>
-                                  📍 {local}
-                                </span>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
-              </>
-            )}
+            </section>
           </div>
-          <div>
-            <ChatWidget />
-          </div>
+
+          <ChatWidget />
         </main>
       </div>
     </div>

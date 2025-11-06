@@ -89,11 +89,11 @@ export default function NovaAcao() {
               criarTarefa: "Não",
           });
 
-          alert("✅ Ação cadastrada com sucesso!");
+          alert("Ação cadastrada com sucesso!");
           router.push("/acoes");
       } catch (err: any) {
           console.error(err);
-          alert(`❌ Erro inesperado: ${err?.message ?? err}`);
+          alert(`Erro inesperado: ${err?.message ?? err}`);
       } finally {
           setLoading(false);
       }
@@ -185,20 +185,11 @@ export default function NovaAcao() {
                 <option value="">Selecione...</option>
                 <option value="Centro">Centro</option>
                 <option value="Jardins">Jardins</option>
+                <option value="Orlando Dantas">Orlando Dantas</option>
+                <option value="Farolândia">Farolândia</option>
               </select>
             </div>
           </div>
-
-          <label className={styles.label}>Criar Tarefa</label>
-          <select
-            name="criarTarefa"
-            value={form.criarTarefa}
-            onChange={handleChange}
-            className={styles.select}
-          >
-            <option value="Não">Não</option>
-            <option value="Sim">Sim</option>
-          </select>
 
           <div className={styles.actions}>
             <button

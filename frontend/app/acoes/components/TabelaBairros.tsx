@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import styles from "../acoes.module.css"; // importante para usar o estilo novo
 
 interface DadosBairro {
   cidade: string;
@@ -24,44 +25,51 @@ export default function TabelaBairros() {
   }, []);
 
   if (loading) {
-    return <p className="text-center text-gray-500">Carregando dados...</p>;
+    return <p className={styles.loading}>Carregando dados...</p>;
   }
 
   return (
-    <div className="bg-white shadow-md rounded-2xl p-4 mt-4">
-      <div className="overflow-x-auto">
-        <table className="w-full border-collapse">
-          <thead>
-            <tr className="bg-purple-700 text-white">
-              <th className="p-3 text-left rounded-tl-lg">Cidade</th>
-              <th className="p-3 text-left">Bairro</th>
-              <th className="p-3 text-left">Quantidade</th>
-              <th className="p-3 text-left rounded-tr-lg">Percentual</th>
+    <div className={styles.tableContainer}>
+      <table className={styles.table}>
+        <thead>
+          <tr>
+            <th>Cidade</th>
+            <th>Bairro</th>
+            <th>Quantidade</th>
+            <th>Percentual</th>
+          </tr>
+        </thead>
+        <tbody>
+          {dados.length === 0 ? (
+            <tr>
+              <td colSpan={4} className={styles.emptyRow}>
+                Nenhum dado encontrado.
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {dados.length === 0 ? (
-              <tr>
-                <td colSpan={4} className="p-4 text-center text-gray-500">
-                  Nenhum dado encontrado.
+          ) : (
+            dados.map((item, index) => (
+              <tr key={index}>
+                <td>{item.cidade}</td>
+                <td>{item.bairro}</td>
+                <td>{item.quantidade}</td>
+                <td>
+                  <div className={styles.percentualCell}>
+                    <span>{item.percentual}</span>
+                    <div className={styles.progressBar}>
+                      <div
+                        className={styles.progressFill}
+                        style={{
+                          width: item.percentual,
+                        }}
+                      />
+                    </div>
+                  </div>
                 </td>
               </tr>
-            ) : (
-              dados.map((item, index) => (
-                <tr
-                  key={index}
-                  className="border-b hover:bg-gray-50 transition-colors"
-                >
-                  <td className="p-3">{item.cidade}</td>
-                  <td className="p-3">{item.bairro}</td>
-                  <td className="p-3">{item.quantidade}</td>
-                  <td className="p-3">{item.percentual}</td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </div>
+            ))
+          )}
+        </tbody>
+      </table>
     </div>
   );
 }

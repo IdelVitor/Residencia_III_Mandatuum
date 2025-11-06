@@ -20,8 +20,7 @@ type Task = {
   status: "ABERTA" | "EM_ANDAMENTO" | "CONCLUIDA";
 };
 
-type KanbanItem = { id: string; title: string; description?: string };
-type Column = { name: string; color: string; items: KanbanItem[] };
+type Column = { name: string; color: string; items: any[] };
 type ColumnsState = {
   todo: Column;
   inProgress: Column;
@@ -38,153 +37,98 @@ export default function GestaoDeTarefas() {
   const router = useRouter();
   const pathname = usePathname();
 
-  const [isClient, setIsClient] = useState(false);
-  useEffect(() => setIsClient(true), []);
+  const [columns, setColumns] = useState<ColumnsState>({
+    todo: { name: "A Fazer", color: "#00C6FF", items: [] },
+    inProgress: { name: "Em Andamento", color: "#7a34ff", items: [] },
+    done: { name: "Finalizado", color: "#6dbb44", items: [] },
+  });
 
-  // 🔐 Proteção de rota
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) router.push("/login");
   }, [router]);
 
-  // 📋 Estado inicial vazio (será preenchido via fetch)
-  const [columns, setColumns] = useState({
-    todo: { name: "A Fazer", color: "#00E0FF", items: [] as any[] },
-    inProgress: { name: "Em Andamento", color: "#C400FF", items: [] as any[] },
-    done: { name: "Finalizado", color: "#6A8F2E", items: [] as any[] },
-  });
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
   useEffect(() => {
     (async () => {
       try {
         const base = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8082";
-        const url = `${base}/tarefas/list`;
-        console.log("➡️ GET", url);
-
-        const res = await fetch(url);
-        console.log("↩️ status", res.status);
+        const res = await fetch(`${base}/tarefas/list`);
         if (!res.ok) throw new Error(`GET /tarefas/list -> ${res.status}`);
 
-        const data: Array<{
-          id: number;
-          titulo: string;
-          descricao?: string;
-          status: string;
-        }> = await res.json();
-
-        // mapeia
+        const data: Task[] = await res.json();
         const next = {
-          todo: { name: "A Fazer", color: "#00E0FF", items: [] as any[] },
+          todo: { name: "A Fazer", color: "#00C6FF", items: [] as any[] },
           inProgress: {
             name: "Em Andamento",
-            color: "#C400FF",
+            color: "#7a34ff",
             items: [] as any[],
           },
-          done: { name: "Finalizado", color: "#6A8F2E", items: [] as any[] },
+          done: { name: "Finalizado", color: "#6dbb44", items: [] as any[] },
         };
 
-        data.forEach((t: any) => {
-          const item = {
-            id: String(t.id),
-            title: t.titulo ?? "(sem título)",
-            description: t.descricao ?? "",
-          };
-          const s = String(t.status ?? "").toUpperCase();
-          if (s === "ABERTA") next.todo.items.push(item);
-          else if (s === "EM_ANDAMENTO") next.inProgress.items.push(item);
-          else if (s === "CONCLUIDA") next.done.items.push(item);
-          else next.todo.items.push(item); // fallback
-        });
-
-        console.log("✅ contagens:", {
-          todo: next.todo.items.length,
-          inProgress: next.inProgress.items.length,
-          done: next.done.items.length,
+        data.forEach((t) => {
+          const item = { id: String(t.id), title: t.titulo, description: t.descricao };
+          if (t.status === "ABERTA") next.todo.items.push(item);
+          else if (t.status === "EM_ANDAMENTO") next.inProgress.items.push(item);
+          else next.done.items.push(item);
         });
 
         setColumns(next);
       } catch (e: any) {
-        console.error(e);
-        setError(e?.message ?? "Erro ao carregar tarefas");
+        setError(e.message ?? "Erro ao carregar tarefas");
       } finally {
         setLoading(false);
       }
     })();
   }, []);
 
-  // 🧲 DnD com update otimista + PATCH de status
   const onDragEnd = async (result: DropResult) => {
     if (!result?.destination) return;
     const { source, destination, draggableId } = result;
 
-    // Atualiza visualmente (UI otimista)
     setColumns((prev) => {
-      // deep copy simples
-      const next: ColumnsState = {
-        todo: { ...prev.todo, items: [...prev.todo.items] },
-        inProgress: { ...prev.inProgress, items: [...prev.inProgress.items] },
-        done: { ...prev.done, items: [...prev.done.items] },
-      };
-
+      const next: ColumnsState = JSON.parse(JSON.stringify(prev));
       const from = next[source.droppableId as keyof ColumnsState].items;
       const to = next[destination.droppableId as keyof ColumnsState].items;
-
       const [moved] = from.splice(source.index, 1);
       to.splice(destination.index, 0, moved);
       return next;
     });
 
-    // Persistência de status quando muda de coluna
     if (source.droppableId !== destination.droppableId) {
       const newStatus =
         STATUS_FROM_COLUMN[destination.droppableId as keyof ColumnsState];
-
       try {
-        await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/tarefas/${draggableId}/status`,
-          {
-            method: "PATCH",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ status: newStatus }),
-          }
-        );
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tarefas/${draggableId}/status`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ status: newStatus }),
+        });
       } catch (err) {
-        console.error("Falha ao atualizar status:", err);
-        // Recarrega do backend para desfazer caso tenha dado erro
+        console.error("Erro ao atualizar status:", err);
       }
     }
   };
 
-  // ✅ Evita erro de hydration
-  if (!isClient) {
-    return (
-      <div style={{ padding: "2rem", textAlign: "center" }}>Carregando…</div>
-    );
-  }
-
-  const debugCounts = {
-    todo: columns.todo.items.length,
-    inProgress: columns.inProgress.items.length,
-    done: columns.done.items.length,
-  };
+  const menuItems = [
+    { name: "Dashboard", path: "/dashboard" },
+    { name: "Ações", path: "/acoes" },
+    { name: "Gestão de Tarefas", path: "/gestaoDeTarefas" },
+    { name: "Cadastro", path: "/cadastro" },
+    { name: "Financeiro", path: "/financeiro" },
+    { name: "Eleições 2026", path: "/eleicoes-2026" },
+    { name: "Configurações", path: "/configuracoes" },
+  ];
 
   return (
     <div className={dash.shell}>
-      {/* Sidebar */}
       <aside className={dash.sidebar}>
         <div className={dash.menuTitle}>Menu Principal</div>
         <nav className={dash.nav}>
-          {[
-            { name: "Dashboard", path: "/dashboard" },
-            { name: "Ações", path: "/acoes" },
-            { name: "Gestão de Tarefas", path: "/gestaoDeTarefas" },
-            { name: "Cadastro", path: "/cadastro" },
-            { name: "Financeiro", path: "/financeiro" },
-            { name: "Eleições 2026", path: "/eleicoes-2026" },
-            { name: "Configurações", path: "/configuracoes" },
-          ].map((item) => (
+          {menuItems.map((item) => (
             <Link
               key={item.path}
               href={item.path}
@@ -208,39 +152,32 @@ export default function GestaoDeTarefas() {
         </button>
       </aside>
 
-      {/* Área principal */}
-
       <div className={dash.main}>
         <main className={`${dash.content} ${styles.container}`}>
-          <div className={styles.header}>
-            <h1>Gestão de Tarefas</h1>
-            <div style={{ margin: "8px 0", fontSize: 12, opacity: 0.7 }}>
-              debug → A Fazer: {debugCounts.todo} • Em Andamento:{" "}
-              {debugCounts.inProgress} • Finalizado: {debugCounts.done}
+          <header className={styles.header}>
+            <div className={styles.headerCenter}>
+              <h1 className={styles.title}>Gestão de Tarefas</h1>
+                <p className={styles.subtitle}>
+                  Organize e acompanhe o progresso das tarefas
+                </p>
             </div>
-
-            <p>Organize e acompanhe o processo das tarefas</p>
-          </div>
-
-          <div className={styles.topActions}>
             <button
               className={styles.newActionButton}
               onClick={() => router.push("/gestaoDeTarefas/novaTarefa")}
             >
               Nova Tarefa
             </button>
-          </div>
+          </header>
+
 
           {loading ? (
-            <div style={{ textAlign: "center", padding: "2rem" }}>
-              Carregando tarefas…
-            </div>
+            <p className={styles.loading}>Carregando tarefas...</p>
+          ) : error ? (
+            <p className={styles.error}>{error}</p>
           ) : (
             <DragDropContext onDragEnd={onDragEnd}>
               <section className={styles.columnsWrapper}>
-                {(
-                  Object.entries(columns) as Array<[keyof ColumnsState, Column]>
-                ).map(([columnId, column]) => (
+                {Object.entries(columns).map(([columnId, column]) => (
                   <div key={columnId} className={styles.column}>
                     <h3
                       className={styles.columnTitle}
@@ -248,8 +185,7 @@ export default function GestaoDeTarefas() {
                     >
                       {column.name}
                     </h3>
-
-                    <Droppable droppableId={String(columnId)}>
+                    <Droppable droppableId={columnId}>
                       {(provided, snapshot) => (
                         <div
                           {...provided.droppableProps}
@@ -269,7 +205,7 @@ export default function GestaoDeTarefas() {
                                   ref={provided.innerRef}
                                   {...provided.draggableProps}
                                   {...provided.dragHandleProps}
-                                  className={`${styles.taskBox} ${
+                                  className={`${styles.taskCard} ${
                                     snapshot.isDragging ? styles.dragging : ""
                                   }`}
                                 >
@@ -277,7 +213,7 @@ export default function GestaoDeTarefas() {
                                     {item.title}
                                   </h4>
                                   <p className={styles.taskDesc}>
-                                    {item.description}
+                                    {item.description || "Sem descrição"}
                                   </p>
                                 </div>
                               )}
@@ -292,9 +228,7 @@ export default function GestaoDeTarefas() {
               </section>
             </DragDropContext>
           )}
-          <div>
-            <ChatWidget />
-          </div>
+          <ChatWidget />
         </main>
       </div>
     </div>
