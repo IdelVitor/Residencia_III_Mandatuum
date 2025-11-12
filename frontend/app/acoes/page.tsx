@@ -140,7 +140,6 @@ export default function AcoesPage() {
                       <div style={{ opacity: .7 }}>Nenhuma ação cadastrada ainda.</div>
                   )}
               </div>
-
               <GraficosDistribuicao />
             <TabelaBairros />
           </div>

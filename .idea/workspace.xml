@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="19d0533e-f35a-4ede-864f-525e65f89f53" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/dto/AcaoListDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/controllers/AcaoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/controllers/AcaoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/services/AcaoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/services/AcaoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/app/acoes/novaAcao/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/acoes/novaAcao/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/app/acoes/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/acoes/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,6 +81,8 @@
       <workItem from="1761162000499" duration="1377000" />
       <workItem from="1762208702174" duration="746000" />
       <workItem from="1762258067221" duration="7020000" />
+      <workItem from="1762271732885" duration="195000" />
+      <workItem from="1762940033643" duration="10000" />
     </task>
     <servers />
   </component>
