@@ -1,42 +1,50 @@
 package com.sedem.api.controllers;
 
-import com.sedem.api.models.RegistroFinanceiro;
+import com.sedem.api.dto.RegistroFinanceiroCreateDTO;
+import com.sedem.api.dto.RegistroFinanceiroListDTO;
 import com.sedem.api.services.RegistroFinanceiroService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/registros-financeiros")
+@RequiredArgsConstructor
 public class RegistroFinanceiroController {
 
-    @Autowired
-    private RegistroFinanceiroService registroFinanceiroService;
+    private final RegistroFinanceiroService service;
 
     @PostMapping
-    public RegistroFinanceiro create(@RequestBody RegistroFinanceiro registro) {
-        return registroFinanceiroService.create(registro);
+    public ResponseEntity<RegistroFinanceiroListDTO> criar(
+            @Valid @RequestBody RegistroFinanceiroCreateDTO dto) {
+        RegistroFinanceiroListDTO resp = service.criar(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(resp);
     }
 
     @GetMapping
-    public List<RegistroFinanceiro> findAll() {
-        return registroFinanceiroService.findAll();
+    public List<RegistroFinanceiroListDTO> listar() {
+        return service.listar();
     }
 
     @GetMapping("/{id}")
-    public RegistroFinanceiro findById(@PathVariable Long id) {
-        return registroFinanceiroService.findById(id)
-                .orElseThrow(() -> new RuntimeException("Registro financeiro não encontrado"));
+    public RegistroFinanceiroListDTO buscarPorId(@PathVariable Long id) {
+        return service.buscarPorId(id);
     }
 
     @PutMapping("/{id}")
-    public RegistroFinanceiro update(@PathVariable Long id, @RequestBody RegistroFinanceiro registro) {
-        return registroFinanceiroService.update(id, registro);
+    public RegistroFinanceiroListDTO atualizar(
+            @PathVariable Long id,
+            @Valid @RequestBody RegistroFinanceiroCreateDTO dto) {
+        return service.atualizar(id, dto);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        registroFinanceiroService.delete(id);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletar(@PathVariable Long id) {
+        service.deletar(id);
     }
 }

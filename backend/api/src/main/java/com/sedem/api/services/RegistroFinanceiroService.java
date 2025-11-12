@@ -1,43 +1,101 @@
 package com.sedem.api.services;
 
+import com.sedem.api.dto.RegistroFinanceiroCreateDTO;
+import com.sedem.api.dto.RegistroFinanceiroListDTO;
 import com.sedem.api.models.RegistroFinanceiro;
+import com.sedem.api.models.Usuario;
 import com.sedem.api.repositories.RegistroFinanceiroRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.sedem.api.repositories.UsuarioRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class RegistroFinanceiroService {
 
-    @Autowired
-    private RegistroFinanceiroRepository registroFinanceiroRepository;
+    private final RegistroFinanceiroRepository registroRepo;
+    private final UsuarioRepository usuarioRepo;
 
-    public RegistroFinanceiro create(RegistroFinanceiro registro) {
-        return registroFinanceiroRepository.save(registro);
+    @Transactional
+    public RegistroFinanceiroListDTO criar(RegistroFinanceiroCreateDTO dto) {
+        RegistroFinanceiro rf = mapToEntity(dto, new RegistroFinanceiro());
+        rf = registroRepo.save(rf);
+        return toListDTO(rf);
     }
 
-    public List<RegistroFinanceiro> findAll() {
-        return registroFinanceiroRepository.findAll();
+    @Transactional(readOnly = true)
+    public List<RegistroFinanceiroListDTO> listar() {
+        return registroRepo.findAll()
+                .stream()
+                .map(this::toListDTO)
+                .toList();
     }
 
-    public Optional<RegistroFinanceiro> findById(Long id) {
-        return registroFinanceiroRepository.findById(id);
+    @Transactional(readOnly = true)
+    public RegistroFinanceiroListDTO buscarPorId(Long id) {
+        RegistroFinanceiro rf = registroRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Registro financeiro não encontrado: " + id));
+        return toListDTO(rf);
     }
 
-    public RegistroFinanceiro update(Long id, RegistroFinanceiro registroAtualizado) {
-        return registroFinanceiroRepository.findById(id).map(registro -> {
-            registro.setData(registroAtualizado.getData());
-            registro.setDescricao(registroAtualizado.getDescricao());
-            registro.setTipo(registroAtualizado.getTipo());
-            registro.setCategoria(registroAtualizado.getCategoria());
-            registro.setValor(registroAtualizado.getValor());
-            return registroFinanceiroRepository.save(registro);
-        }).orElseThrow(() -> new RuntimeException("Registro financeiro não encontrado"));
+    @Transactional
+    public RegistroFinanceiroListDTO atualizar(Long id, RegistroFinanceiroCreateDTO dto) {
+        RegistroFinanceiro rf = registroRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Registro financeiro não encontrado: " + id));
+        rf = mapToEntity(dto, rf);
+        rf = registroRepo.save(rf);
+        return toListDTO(rf);
     }
 
-    public void delete(Long id) {
-        registroFinanceiroRepository.deleteById(id);
+    @Transactional
+    public void deletar(Long id) {
+        if (!registroRepo.existsById(id)) {
+            throw new IllegalArgumentException("Registro financeiro não encontrado: " + id);
+        }
+        registroRepo.deleteById(id);
+    }
+
+    /* ---------- mapeamentos ---------- */
+
+    private RegistroFinanceiro mapToEntity(RegistroFinanceiroCreateDTO dto, RegistroFinanceiro target) {
+        // usuário
+        Usuario usuario = usuarioRepo.findById(dto.usuarioId())
+                .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado: " + dto.usuarioId()));
+        target.setUsuario(usuario);
+
+        // datas: DTO usa LocalDate; entidade usa LocalDateTime
+        if (dto.dataRegistro() != null) {
+            target.setDataRegistro(dto.dataRegistro().atStartOfDay());
+        } else {
+            target.setDataRegistro(null);
+        }
+
+        // valores
+        target.setValorLocacaoImovel(dto.valorLocacaoImovel());
+        target.setValorAssessoriaJuridica(dto.valorAssessoriaJuridica());
+        target.setValorAssessoriaComunicacao(dto.valorAssessoriaComunicacao());
+        target.setValorCombustivel(dto.valorCombustivel());
+        target.setDespesasDebito(dto.despesasDebito());
+        target.setDespesasCredito(dto.despesasCredito());
+        target.setOutrasDespesas(dto.outrasDespesas());
+
+        return target;
+    }
+
+    private RegistroFinanceiroListDTO toListDTO(RegistroFinanceiro rf) {
+        return new RegistroFinanceiroListDTO(
+                rf.getId(),
+                rf.getDataRegistro() != null ? rf.getDataRegistro().toLocalDate() : null,
+                rf.getValorLocacaoImovel(),
+                rf.getValorAssessoriaJuridica(),
+                rf.getValorAssessoriaComunicacao(),
+                rf.getValorCombustivel(),
+                rf.getDespesasDebito(),
+                rf.getDespesasCredito(),
+                rf.getOutrasDespesas()
+        );
     }
 }

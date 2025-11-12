@@ -40,6 +40,7 @@ public class SecurityConfig {
                         .requestMatchers("/acoes/**").permitAll()
                         .requestMatchers("/acoes").permitAll()
                         .requestMatchers("/contatos/**").permitAll()
+                        .requestMatchers("/registros-financeiros/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
