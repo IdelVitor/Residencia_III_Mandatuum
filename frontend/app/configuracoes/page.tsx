@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import Link from "next/link";  
+import Link from "next/link";
 import dash from "../dashboard/dashboard.module.css";
 import styles from "./configuracoes.module.css";
 
@@ -10,6 +10,7 @@ import styles from "./configuracoes.module.css";
 import AlterarSenha from "./components/AlterarSenha";
 import CadastroUsuario from "./components/CadastroUsuario";
 import AdministracaoUsuarios from "./components/AdministracaoUsuarios";
+import { ChatWidget } from "../components/ChatWidget";
 
 export default function ConfiguracoesPage() {
   const router = useRouter();
@@ -20,16 +21,14 @@ export default function ConfiguracoesPage() {
     if (!token) router.push("/login");
   }, [router]);
 
-  // Estado que controla a aba ativa
   const [abaAtiva, setAbaAtiva] = useState("senha");
 
   const menuItems = [
     { name: "Dashboard", path: "/dashboard" },
     { name: "Ações", path: "/acoes" },
     { name: "Gestão de Tarefas", path: "/gestaoDeTarefas" },
-    { name: "Cadastro", path: "/cadastro" },
     { name: "Financeiro", path: "/financeiro" },
-    { name: "Eleições 2026", path: "/eleicoes-2026" },
+    { name: "Eleições 2026", path: "/eleicao" },
     { name: "Configurações", path: "/configuracoes" },
   ];
 
@@ -68,11 +67,11 @@ export default function ConfiguracoesPage() {
       <div className={dash.main}>
         <main className={dash.content}>
           <div className={styles.container}>
-            {/* Cabeçalho */}
-            <div className={styles.header}>
+            {/* Cabeçalho atualizado */}
+            <header className={styles.header}>
               <h1>Configurações</h1>
               <p>Gerencie suas configurações de usuário</p>
-            </div>
+            </header>
 
             {/* Tabs de navegação */}
             <div className={styles.tabs}>
@@ -109,6 +108,8 @@ export default function ConfiguracoesPage() {
             {abaAtiva === "cadastro" && <CadastroUsuario />}
             {abaAtiva === "admin" && <AdministracaoUsuarios />}
           </div>
+
+          <ChatWidget />
         </main>
       </div>
     </div>

@@ -1,0 +1,51 @@
+.container {
+  padding: 1.5rem;
+}
+
+.titulo {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.buscaContainer {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.buscaInput {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 2px solid #007bff; 
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse; 
+  text-align: left;
+}
+
+.thead {
+  background-color: #f3f4f6;
+}
+
+.th {
+  padding: 0.75rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6b7280;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.td {
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  color: #111827;
+  border-bottom: 1px solid #e5e7eb;
+}

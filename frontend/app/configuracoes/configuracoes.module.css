@@ -1,34 +1,46 @@
-/* =======================================
-   ⚙️ Configurações - Layout Base
-======================================= */
+:root {
+  --brand: #5e0ef1;
+  --brand-2: #7a34ff;
+  --bg: #f4f6ff;
+  --ink: #0f172a;
+  --muted: #6b7280;
+  --card: #ffffff;
+  --shadow: 0 6px 20px rgba(24, 24, 40, 0.06);
+}
 
+/* ===== Layout Base ===== */
 .container {
   min-height: 100vh;
-  background: var(--color-bg);
+  background: var(--bg);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 0rem 1rem;
+  padding: 0 1.5rem 2rem;
 }
 
-/* ===== Cabeçalho ===== */
+/* ===== Cabeçalho igual ao Financeiro e Gestão de Tarefas ===== */
 .header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   text-align: center;
-  margin-bottom: 2.2rem;
+  width: 100%;
+  margin-bottom: 2.5rem;
 }
 
 .header h1 {
-  font-size: 2rem;
-  font-weight: 800;
-  color: #4b33e7;
-  margin-bottom: 0.3rem;
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--ink);
+  margin: 0;
 }
 
 .header p {
-  color: var(--color-text-light);
-  margin-top: 0.4rem;
+  color: var(--muted);
   font-size: 1rem;
+  margin-top: 0.4rem;
 }
 
 /* ===== Tabs ===== */
@@ -42,7 +54,7 @@
 
 .tab {
   font-weight: 600;
-  color: var(--color-text-light);
+  color: var(--muted);
   cursor: pointer;
   position: relative;
   padding-bottom: 0.6rem;
@@ -51,12 +63,12 @@
 }
 
 .tab:hover {
-  color: var(--color-primary);
+  color: var(--brand);
 }
 
 .active {
-  color: var(--color-primary);
-  border-bottom: 2px solid var(--color-primary);
+  color: var(--brand);
+  border-bottom: 2px solid var(--brand);
 }
 
 /* ===== Animação base ===== */

@@ -1,72 +1,72 @@
 "use client";
 
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import dash from "../dashboard/dashboard.module.css";
 import styles from "./acoes.module.css";
+
 import MapaAcoes from "./components/MapaAcoes";
-import GraficosDistribuicao from "./components/GraficosDistribuicao";
 import TabelaBairros from "./components/TabelaBairros";
+import { ChatWidget } from "../components/ChatWidget";
 
 type Acao = {
-    id: number;
-    titulo: string;
-    descricao?: string;
-    tipo?: string;
-    data?: string;        // ISO (yyyy-MM-ddTHH:mm:ss)
-    cidade?: string;
-    bairro?: string;
+  id: number;
+  titulo: string;
+  descricao?: string;
+  tipo?: string;
+  data?: string;
+  cidade?: string;
+  bairro?: string;
 };
 
 export default function AcoesPage() {
   const router = useRouter();
   const pathname = usePathname();
 
-    // estado
-    const [acoes, setAcoes] = useState<Acao[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+  const [acoes, setAcoes] = useState<Acao[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-// carregar do backend
-    useEffect(() => {
-        (async () => {
-            try {
-                const base = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8082";
-                const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
-
-                const headers: Record<string, string> = { "Content-Type": "application/json" };
-                if (token) headers.Authorization = `Bearer ${token}`;
-
-                // tenta primeiro o DTO leve (/acoes/list); se não existir, cai para /acoes
-                let res = await fetch(`${base}/acoes/list`, { headers });
-                if (res.status === 404) res = await fetch(`${base}/acoes`, { headers });
-
-                if (!res.ok) throw new Error(`GET /acoes -> ${res.status}`);
-                const json = await res.json();
-                const data: Acao[] = Array.isArray(json) ? json : (json?.content ?? []);
-
-                setAcoes(data);
-            } catch (e: any) {
-                setError(e.message ?? "Erro ao carregar ações");
-            } finally {
-                setLoading(false);
-            }
-        })();
-    }, []);
-
-    useEffect(() => {
+  useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) router.push("/login");
   }, [router]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const base = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8082";
+        const token =
+          typeof window !== "undefined" ? localStorage.getItem("token") : null;
+
+        const headers: Record<string, string> = {
+          "Content-Type": "application/json",
+        };
+        if (token) headers.Authorization = `Bearer ${token}`;
+
+        let res = await fetch(`${base}/acoes/list`, { headers });
+        if (res.status === 404) res = await fetch(`${base}/acoes`, { headers });
+        if (!res.ok) throw new Error(`GET /acoes -> ${res.status}`);
+
+        const json = await res.json();
+        const data: Acao[] = Array.isArray(json) ? json : json?.content ?? [];
+
+        setAcoes(data);
+      } catch (e: any) {
+        setError(e.message ?? "Erro ao carregar ações");
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
 
   const menuItems = [
     { name: "Dashboard", path: "/dashboard" },
     { name: "Ações", path: "/acoes" },
     { name: "Gestão de Tarefas", path: "/gestaoDeTarefas" },
-    { name: "Cadastro", path: "/cadastro" },
     { name: "Financeiro", path: "/financeiro" },
-    { name: "Eleições 2026", path: "/eleicoes-2026" },
+    { name: "Eleições 2026", path: "/eleicao" },
     { name: "Configurações", path: "/configuracoes" },
   ];
 
@@ -101,48 +101,71 @@ export default function AcoesPage() {
       <div className={dash.main}>
         <main className={dash.content}>
           <div className={styles.container}>
-            <div className={styles.header}>
-              <h1>Ações</h1>
-              <p>Visualize e gerencie as ações realizadas</p>
-            </div>
-
-            <div className={styles.topActions}>
+            <header className={styles.header}>
+              <div className={styles.headerCenter}>
+                <h1 className={styles.title}>Ações</h1>
+                  <p className={styles.subtitle}>
+                    Acompanhe, visualize e gerencie todas as ações realizadas 
+                  </p>
+              </div>
               <button
                 className={styles.newActionButton}
                 onClick={() => router.push("/acoes/novaAcao")}
               >
                 Nova Ação
               </button>
-            </div>
+            </header>
 
-            <h2 className={styles.cardTitle}>Mapas de Ações</h2>
-            <MapaAcoes />
-              <h2 className={styles.cardTitle} style={{ marginTop: "2rem" }}>
-                  Ações cadastradas
-              </h2>
-
-              {loading && <div style={{ padding: 12 }}>Carregando ações…</div>}
-              {error && <div style={{ color: "crimson", padding: 12 }}>Erro: {error}</div>}
-
-              <div style={{ display: "grid", gap: 16, gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))" }}>
-                  {acoes.map(a => (
-                      <div key={a.id} className={styles.card}>
-                          <h3 style={{ margin: 0 }}>{a.titulo}</h3>
-                          {a.descricao && <p style={{ marginTop: 6 }}>{a.descricao}</p>}
-                          <div style={{ fontSize: 12, opacity: .8, marginTop: 6 }}>
-                              {[a.tipo, (a.data ? new Date(a.data).toLocaleDateString() : null), [a.bairro, a.cidade].filter(Boolean).join(", ")]
-                                  .filter(Boolean)
-                                  .join(" • ")}
-                          </div>
-                      </div>
-                  ))}
-                  {!loading && !error && acoes.length === 0 && (
-                      <div style={{ opacity: .7 }}>Nenhuma ação cadastrada ainda.</div>
-                  )}
+            <section className={styles.section}>
+              <h2 className={styles.sectionTitle}>Mapa de Ações</h2>
+              <div className={styles.mapWrapper}>
+                <MapaAcoes />
               </div>
-              <GraficosDistribuicao />
-            <TabelaBairros />
+            </section>
+
+            <section className={styles.section}>
+              <h2 className={styles.sectionTitle}>Ações Cadastradas</h2>
+              {loading ? (
+                <p className={styles.loading}>Carregando...</p>
+              ) : error ? (
+                <p className={styles.error}>Erro: {error}</p>
+              ) : acoes.length === 0 ? (
+                <p className={styles.emptyState}>Nenhuma ação cadastrada.</p>
+              ) : (
+                <div className={styles.cardsGrid}>
+                  {acoes.map((acao) => {
+                    const dateStr = acao.data
+                      ? new Date(acao.data).toLocaleDateString("pt-BR")
+                      : "Sem data";
+                    const local = [acao.bairro, acao.cidade]
+                      .filter(Boolean)
+                      .join(", ");
+
+                    return (
+                      <div key={acao.id} className={styles.card}>
+                        <h3 className={styles.cardTitle}>{acao.titulo}</h3>
+                        {acao.descricao && (
+                          <p className={styles.cardDesc}>{acao.descricao}</p>
+                        )}
+                        <div className={styles.meta}>
+                          <span>📍 {local || "Local não informado"}</span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </section>
+
+            <section className={styles.section}>
+              <h2 className={styles.sectionTitle}>Pessoas por Bairro</h2>
+              <div className={styles.tableWrapper}>
+                <TabelaBairros />
+              </div>
+            </section>
           </div>
+
+          <ChatWidget />
         </main>
       </div>
     </div>

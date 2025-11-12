@@ -1,5 +1,8 @@
 package com.sedem.api.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,34 +44,42 @@ public class Usuario {
     @PrePersist
     public void prePersist() {
         if (this.atualizadoEm == null) {
-            this.atualizadoEm = LocalDateTime.now();  // Definindo a data de criação
+            this.atualizadoEm = LocalDateTime.now();
         }
     }
 
     @PreUpdate
     public void preUpdate() {
-        this.atualizadoEm = LocalDateTime.now();  // Sempre que o usuário for atualizado, o campo será atualizado com o timestamp atual
+        this.atualizadoEm = LocalDateTime.now();
     }
 
     // Relações
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Contato> contatos;
-
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<Acao> acoes;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private List<Contato> contatos;
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<Tarefa> tarefas;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<CoordenadaBairro> coordenadasBairros;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<RegistroFinanceiro> registrosFinanceiros;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<UserPermission> userPermissions;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<UserAccessLog> userAccessLogs;
 }

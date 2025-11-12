@@ -5,6 +5,7 @@ import Link from "next/link";
 import dash from "../../dashboard/dashboard.module.css";
 import styles from "./novoRegistro.module.css";
 import { useEffect } from "react";
+import { ChatWidget } from "../../components/ChatWidget";
 
 export default function NovoRegistroFinanceiro() {
   const router = useRouter();
@@ -19,9 +20,8 @@ export default function NovoRegistroFinanceiro() {
     { name: "Dashboard", path: "/dashboard" },
     { name: "Ações", path: "/acoes" },
     { name: "Gestão de Tarefas", path: "/gestaoDeTarefas" },
-    { name: "Cadastro", path: "/cadastro" },
     { name: "Financeiro", path: "/financeiro" },
-    { name: "Eleições 2026", path: "/eleicoes-2026" },
+    { name: "Eleições 2026", path: "/eleicao" },
     { name: "Configurações", path: "/configuracoes" },
   ];
 
@@ -125,6 +125,9 @@ export default function NovoRegistroFinanceiro() {
               </button>
             </div>
           </form>
+          <div>
+            <ChatWidget />
+          </div>
         </main>
       </div>
     </div>

@@ -5,6 +5,7 @@ import Link from "next/link";
 import dash from "../dashboard/dashboard.module.css";
 import styles from "./financeiro.module.css";
 import { useEffect } from "react";
+import { ChatWidget } from "../components/ChatWidget";
 
 export default function FinanceiroPage() {
   const router = useRouter();
@@ -19,9 +20,8 @@ export default function FinanceiroPage() {
     { name: "Dashboard", path: "/dashboard" },
     { name: "Ações", path: "/acoes" },
     { name: "Gestão de Tarefas", path: "/gestaoDeTarefas" },
-    { name: "Cadastro", path: "/cadastro" },
     { name: "Financeiro", path: "/financeiro" },
-    { name: "Eleições 2026", path: "/eleicoes-2026" },
+    { name: "Eleições 2026", path: "/eleicao" },
     { name: "Configurações", path: "/configuracoes" },
   ];
 
@@ -82,61 +82,66 @@ export default function FinanceiroPage() {
 
       {/* Conteúdo principal */}
       <div className={dash.main}>
-        <main className={`${dash.content} ${styles.page}`}>
-          {/* Cabeçalho da página (igual Configurações) */}
-          <div className={styles.pageHeader}>
-            <h1 className={styles.pageTitle}>Financeiro</h1>
-            <p className={styles.pageSubtitle}>
-              Gerencie as configurações financeiras do sistema.
-            </p>
+        <main className={dash.content}>
+          <div className={styles.container}>
+            {/* Cabeçalho igual à Gestão de Tarefas */}
+            <header className={styles.header}>
+              <div className={styles.headerCenter}>
+                <h1 className={styles.title}>Financeiro</h1>
+                <p className={styles.subtitle}>
+                  Organize e acompanhe o fluxo financeiro do sistema
+                </p>
+              </div>
+              <button
+                className={styles.newActionButton}
+                onClick={() => router.push("/financeiro/novoRegistro")}
+              >
+                Novo Registro
+              </button>
+            </header>
+
+            {/* Seção de Registros */}
+            <section className={styles.section}>
+              <h2 className={styles.sectionTitle}>Registros Financeiros</h2>
+
+              <div className={styles.tableWrapper}>
+                <table className={styles.table}>
+                  <thead>
+                    <tr>
+                      <th>DATA</th>
+                      <th>LOCAÇÃO</th>
+                      <th>ASS. JURÍDICA</th>
+                      <th>ASS. COMUNICAÇÃO</th>
+                      <th>COMBUSTÍVEL</th>
+                      <th>DÉBITO</th>
+                      <th>CRÉDITO</th>
+                      <th>OUTROS</th>
+                      <th>TOTAL</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {registros.map((r, i) => (
+                      <tr key={i}>
+                        <td>{r.data}</td>
+                        <td>R$ {r.locacao.toLocaleString()}</td>
+                        <td>R$ {r.juridica.toLocaleString()}</td>
+                        <td>R$ {r.comunicacao.toLocaleString()}</td>
+                        <td>R$ {r.combustivel.toLocaleString()}</td>
+                        <td>R$ {r.debito.toLocaleString()}</td>
+                        <td>R$ {r.credito.toLocaleString()}</td>
+                        <td>R$ {r.outros.toLocaleString()}</td>
+                        <td className={styles.total}>
+                          R$ {r.total.toLocaleString()}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
           </div>
 
-          <div className={styles.topActions}>
-            <button
-              className={styles.newActionButton}
-              onClick={() => router.push("/financeiro/novoRegistro")}
-            >
-              Novo Registro
-            </button>
-          </div>
-
-          {/* Seção de Registros Financeiros */}
-          <h2 className={styles.cardTitle}>Registros Financeiros</h2>
-
-          <div className={styles.tableWrapper}>
-            <table className={styles.table}>
-              <thead>
-                <tr>
-                  <th>DATA</th>
-                  <th>LOCAÇÃO</th>
-                  <th>ASS. JURÍDICA</th>
-                  <th>ASS. COMUNICAÇÃO</th>
-                  <th>COMBUSTÍVEL</th>
-                  <th>DÉBITO</th>
-                  <th>CRÉDITO</th>
-                  <th>OUTROS</th>
-                  <th>TOTAL</th>
-                </tr>
-              </thead>
-              <tbody>
-                {registros.map((r, i) => (
-                  <tr key={i}>
-                    <td>{r.data}</td>
-                    <td>R$ {r.locacao.toLocaleString()}</td>
-                    <td>R$ {r.juridica.toLocaleString()}</td>
-                    <td>R$ {r.comunicacao.toLocaleString()}</td>
-                    <td>R$ {r.combustivel.toLocaleString()}</td>
-                    <td>R$ {r.debito.toLocaleString()}</td>
-                    <td>R$ {r.credito.toLocaleString()}</td>
-                    <td>R$ {r.outros.toLocaleString()}</td>
-                    <td className={styles.total}>
-                      R$ {r.total.toLocaleString()}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <ChatWidget />
         </main>
       </div>
     </div>

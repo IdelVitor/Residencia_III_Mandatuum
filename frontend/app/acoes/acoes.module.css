@@ -1,100 +1,215 @@
-/* Fundo e espaçamento */
+:root {
+  --brand: #5e0ef1;
+  --brand-2: #7a34ff;
+  --bg: #f4f6ff;
+  --ink: #0f172a;
+  --muted: #6b7280;
+  --card: #ffffff;
+  --shadow: 0 6px 20px rgba(24, 24, 40, 0.06);
+}
+
+/* ===== Layout geral ===== */
 .container {
-  background: #f6f7ff;
+  background: var(--bg);
   min-height: 100vh;
-  padding: 1rem 2rem;
   display: flex;
   flex-direction: column;
+  padding: 0rem 1.5rem 1rem;
+  gap: 2rem;
 }
 
-/* Cabeçalho centralizado */
+/* ===== Cabeçalho com centralização e botão à direita ===== */
 .header {
-  text-align: center;
-  margin-bottom: 2.2rem;
-}
-
-.header h1 {
-  font-size: 2rem;
-  font-weight: 800;
-  color: #4b33e7;
-  margin-bottom: 0.3rem;
-}
-
-.header p {
-  color: #6c6c80;
-  font-size: 1rem;
-  font-weight: 400;
-}
-
-/* Botão "Nova Ação" (idêntico ao de “Nova Tarefa”) */
-.topActions {
   display: flex;
-  justify-content: flex-end;  
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  text-align: center;
   width: 100%;
-  max-width: 960px;           
-  margin-top: 1.2rem;
-  margin-bottom: 2.2rem;
-  padding-right: 1rem;        
+  margin-bottom: 2.5rem;
+}
+
+.headerCenter {
+  flex: 1;
+}
+
+.title {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--ink);
+  margin: 0;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 1rem;
+  margin-top: 0.4rem;
 }
 
 .newActionButton {
-  background: #5e0ef1;
+  position: absolute;
+  right: 0;
+  top: 30px;
+  background: var(--brand);
   color: #fff;
   border: none;
   border-radius: 12px;
-  padding: 0.9rem 2rem;
+  padding: 0.9rem 1.8rem;
   font-weight: 600;
-  font-size: 1rem;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 6px 18px rgba(94, 14, 241, 0.35);
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 22px rgba(94, 14, 241, 0.35);
 }
-
 .newActionButton:hover {
-  background: #4b00d4;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(94, 14, 241, 0.45);
+  background: var(--brand-2);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 28px rgba(94, 14, 241, 0.45);
 }
 
-/* Título das seções */
-.cardTitle {        
-  font-size: 1.5rem;          
-  font-weight: 800;            
-  color: #0f172a;              
-  margin-bottom: 1.5rem;       
-  letter-spacing: -0.01em;
+/* ===== Sections ===== */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.sectionTitle {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--ink);
 }
 
-/* Tabela estilizada */
-.tabelaWrapper {
-  margin-top: 2rem;
+/* ===== Map ===== */
+.mapWrapper {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(94, 14, 241, 0.15);
+  height: 400px;
 }
 
-.tabela {
+/* ===== Cards ===== */
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+.card {
+  background: var(--card);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  padding: 1rem 1.25rem;
+  transition: 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 22px rgba(94, 14, 241, 0.15);
+}
+.cardTitle {
+  font-weight: 800;
+  color: var(--ink);
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+}
+.cardDesc {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 0.8rem;
+}
+.meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--brand);
+  font-weight: 600;
+}
+
+/* ===== Table ===== */
+.tableWrapper {
+  background: var(--card);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  padding: 1rem 1.2rem 1.5rem;
+}
+
+/* ===== States ===== */
+.loading,
+.error,
+.emptyState {
+  text-align: center;
+  font-weight: 500;
+  color: var(--muted);
+}
+.error {
+  color: #d32f2f;
+}
+
+/* ====== Tabela Melhorada ====== */
+.tableContainer {
+  background: var(--card);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 1rem 1.25rem 1.5rem;
+  overflow-x: auto;
+}
+
+.table {
   width: 100%;
   border-collapse: collapse;
-  background: #ffffff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: all 0.2s ease-in-out;
+  font-family: "Inter", "Segoe UI", sans-serif;
+  color: var(--ink);
 }
 
-.tabela th {
-  background: #5e0ef1;
-  color: #ffffff;
+/* Cabeçalho */
+.table thead th {
+  background: #4f5ef7; /* Azul principal do Mandatuum */
+  color: #fff;
+  font-weight: 700;
   text-align: left;
-  padding: 0.8rem 1rem;
+  padding: 0.9rem 1rem;
   font-size: 0.95rem;
 }
-
-.tabela td {
-  padding: 0.8rem 1rem;
-  border-top: 1px solid #eee;
-  font-size: 0.9rem;
+.table thead th:first-child {
+  border-top-left-radius: 10px;
+}
+.table thead th:last-child {
+  border-top-right-radius: 10px;
 }
 
-.tabela tr:hover {
-  background-color: #f9f5ff;
-  transition: background-color 0.2s ease-in-out;
+/* Corpo */
+.table tbody td {
+  padding: 0.85rem 1rem;
+  font-size: 0.92rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+.table tbody tr:hover {
+  background-color: #f3f4ff;
+  transition: background 0.2s ease-in-out;
+}
+
+.emptyRow {
+  text-align: center;
+  padding: 1rem;
+  color: var(--muted);
+}
+
+/* ===== Barra de Progresso no Percentual ===== */
+.percentualCell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.progressBar {
+  background: #e5e7eb;
+  border-radius: 6px;
+  height: 8px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.progressFill {
+  background: linear-gradient(90deg, #4f5ef7, #7a34ff);
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.4s ease;
 }

@@ -1,0 +1,122 @@
+/* app/eleicao/chat.module.css */
+
+.chatContainer {
+  /* Este container não faz nada visualmente, 
+     mas é útil se você quiser agrupar o chat */
+}
+
+/* O Botão Flutuante (FAB) no canto */
+.chatToggleButton {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background-color: #3a4b8b; /* Cor principal (azul escuro do header) */
+  color: white;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  transition: transform 0.2s;
+}
+
+.chatToggleButton:hover {
+  transform: scale(1.1);
+}
+
+/* A Janela do Chat */
+.chatWindow {
+  position: fixed;
+  bottom: 90px; /* Acima do botão */
+  right: 20px;
+  width: 350px;
+  max-width: 90vw;
+  height: 450px;
+  background-color: #f0f0f0; /* Fundo cinza claro da imagem */
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Para forçar os cantos arredondados */
+  z-index: 1000;
+}
+
+/* Cabeçalho da Janela */
+.chatHeader {
+  background-color: #3a4b8b; /* Azul escuro da imagem */
+  color: white;
+  padding: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+.closeButton {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Corpo (onde as mensagens ficam) */
+.chatBody {
+  flex-grow: 1;
+  padding: 1rem;
+  overflow-y: auto; /* Adiciona scroll se as mensagens passarem da altura */
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.botMessage {
+  background-color: #0000ff; /* Azul brilhante da imagem */
+  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  max-width: 80%;
+  align-self: flex-start;
+  word-wrap: break-word; /* Quebra de linha */
+}
+
+/* Área de Input (embaixo) */
+.chatInputArea {
+  display: flex;
+  padding: 1rem;
+  border-top: 1px solid #ddd;
+  background-color: #fff;
+}
+
+.chatInput {
+  flex-grow: 1;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  margin-right: 0.5rem;
+}
+
+.sendButton {
+  background-color: #3a4b8b; /* Azul escuro */
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sendButton:hover {
+  opacity: 0.9;
+}
