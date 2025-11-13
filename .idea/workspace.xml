@@ -5,15 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="19d0533e-f35a-4ede-864f-525e65f89f53" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/dto/RegistroFinanceiroCreateDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/dto/RegistroFinanceiroListDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/controllers/RegistroFinanceiroController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/controllers/RegistroFinanceiroController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/models/RegistroFinanceiro.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/models/RegistroFinanceiro.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/security/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/services/RegistroFinanceiroService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/services/RegistroFinanceiroService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/security/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/security/SecurityConfig.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/app/financeiro/novoRegistro/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/financeiro/novoRegistro/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/app/financeiro/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/financeiro/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
