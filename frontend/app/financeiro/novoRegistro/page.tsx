@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { ChatWidget } from "../../components/ChatWidget";
 
 type FormState = {
-  dataRegistro: string;              // yyyy-MM-dd
+  dataRegistro: string; // yyyy-MM-dd
   valorLocacaoImovel: string;
   valorAssessoriaJuridica: string;
   valorAssessoriaComunicacao: string;
@@ -23,16 +23,16 @@ export default function NovoRegistroFinanceiro() {
   const pathname = usePathname();
 
   const [loading, setLoading] = useState(false);
-    const [form, setForm] = useState<FormState>({
-      dataRegistro: "",
-      valorLocacaoImovel: "",
-      valorAssessoriaJuridica: "",
-      valorAssessoriaComunicacao: "",
-      valorCombustivel: "",
-      despesasDebito: "",
-      despesasCredito: "",
-      outrasDespesas: "",
-    });
+  const [form, setForm] = useState<FormState>({
+    dataRegistro: "",
+    valorLocacaoImovel: "",
+    valorAssessoriaJuridica: "",
+    valorAssessoriaComunicacao: "",
+    valorCombustivel: "",
+    despesasDebito: "",
+    despesasCredito: "",
+    outrasDespesas: "",
+  });
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -49,10 +49,9 @@ export default function NovoRegistroFinanceiro() {
   ];
 
   const onChange =
-      (name: keyof FormState) =>
-      (e: React.ChangeEvent<HTMLInputElement>) => {
-        setForm((prev) => ({ ...prev, [name]: e.target.value }));
-      };
+    (name: keyof FormState) => (e: React.ChangeEvent<HTMLInputElement>) => {
+      setForm((prev) => ({ ...prev, [name]: e.target.value }));
+    };
 
   const toNumber = (s: string) => {
     if (!s) return 0;
@@ -63,91 +62,98 @@ export default function NovoRegistroFinanceiro() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-      e.preventDefault();
+    e.preventDefault();
 
-      // Validação mínima
-      if (!form.dataRegistro) {
-        alert("Informe a data do registro.");
-        return;
-      }
+    // Validação mínima
+    if (!form.dataRegistro) {
+      alert("Informe a data do registro.");
+      return;
+    }
 
-      const base = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8082";
-      const token = localStorage.getItem("token") ?? "";
+    const base = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8082";
+    const token = localStorage.getItem("token") ?? "";
 
-      let userId = 1;
-      const stored = localStorage.getItem("userId");
-      if (stored && !Number.isNaN(Number(stored))) userId = Number(stored);
+    let userId = 1;
+    const stored = localStorage.getItem("userId");
+    if (stored && !Number.isNaN(Number(stored))) userId = Number(stored);
 
-      const headers: Record<string, string> = { "Content-Type": "application/json" };
-      if (token) headers.Authorization = `Bearer ${token}`;
+    const headers: Record<string, string> = {
+      "Content-Type": "application/json",
+    };
+    if (token) headers.Authorization = `Bearer ${token}`;
 
-      // Monte o payload com os nomes do SEU model:
-      // Se no seu RegistroFinanceiro.java os nomes forem outros (ex.: data, locacaoImovel, etc.),
-      // ajuste aqui mantendo a lógica de números e a inclusão do usuário.
-      const payload = {
-        dataRegistro: form.dataRegistro ? `${form.dataRegistro}T00:00:00` : null,
-        valorLocacaoImovel: toNumber(form.valorLocacaoImovel),
-        valorAssessoriaJuridica: toNumber(form.valorAssessoriaJuridica),
-        valorAssessoriaComunicacao: toNumber(form.valorAssessoriaComunicacao),
-        valorCombustivel: toNumber(form.valorCombustivel),
-        despesasDebito: toNumber(form.despesasDebito),
-        despesasCredito: toNumber(form.despesasCredito),
-        outrasDespesas: toNumber(form.outrasDespesas),
-        usuario: { id: userId },
-      };
+    // Monte o payload com os nomes do SEU model:
+    // Se no seu RegistroFinanceiro.java os nomes forem outros (ex.: data, locacaoImovel, etc.),
+    // ajuste aqui mantendo a lógica de números e a inclusão do usuário.
+    const payload = {
+      dataRegistro: form.dataRegistro || null,
+      valorLocacaoImovel: toNumber(form.valorLocacaoImovel),
+      valorAssessoriaJuridica: toNumber(form.valorAssessoriaJuridica),
+      valorAssessoriaComunicacao: toNumber(form.valorAssessoriaComunicacao),
+      valorCombustivel: toNumber(form.valorCombustivel),
+      despesasDebito: toNumber(form.despesasDebito),
+      despesasCredito: toNumber(form.despesasCredito),
+      outrasDespesas: toNumber(form.outrasDespesas),
+      usuarioId: userId,
+    };
 
-      setLoading(true);
-      try {
-        // rota principal
-        let res = await fetch(`${base}/registros-financeiros`, {
+    setLoading(true);
+    try {
+      // rota principal
+      let res = await fetch(`${base}/registros-financeiros`, {
+        method: "POST",
+        headers,
+        body: JSON.stringify(payload),
+      });
+
+      // fallbacks de rota comuns
+      if (res.status === 404) {
+        res = await fetch(`${base}/financeiro/registros`, {
           method: "POST",
           headers,
           body: JSON.stringify(payload),
         });
-
-        // fallbacks de rota comuns
-        if (res.status === 404) {
-          res = await fetch(`${base}/financeiro/registros`, {
-            method: "POST",
-            headers,
-            body: JSON.stringify(payload),
-          });
-        }
-        if (res.status === 404) {
-          res = await fetch(`${base}/registrosFinanceiros`, {
-            method: "POST",
-            headers,
-            body: JSON.stringify(payload),
-          });
-        }
-
-        if (!res.ok) {
-          const txt = await res.text().catch(() => "");
-          console.error("POST registro financeiro FAILED:", res.status, txt);
-          alert(`❌ Falha ao cadastrar (HTTP ${res.status}).\n${txt.substring(0, 400)}`);
-          return;
-        }
-
-        // Sucesso
-        setForm({
-          dataRegistro: "",
-          valorLocacaoImovel: "",
-          valorAssessoriaJuridica: "",
-          valorAssessoriaComunicacao: "",
-          valorCombustivel: "",
-          despesasDebito: "",
-          despesasCredito: "",
-          outrasDespesas: "",
-        });
-        alert("✅ Registro financeiro cadastrado com sucesso!");
-        router.push("/financeiro");
-      } catch (err: any) {
-        console.error(err);
-        alert(`❌ Erro inesperado: ${err?.message ?? err}`);
-      } finally {
-        setLoading(false);
       }
-    };
+      if (res.status === 404) {
+        res = await fetch(`${base}/registrosFinanceiros`, {
+          method: "POST",
+          headers,
+          body: JSON.stringify(payload),
+        });
+      }
+
+      if (!res.ok) {
+        const txt = await res.text().catch(() => "");
+        console.error("POST registro financeiro FAILED:", res.status, txt);
+        alert(
+          `❌ Falha ao cadastrar (HTTP ${res.status}).\n${txt.substring(
+            0,
+            400
+          )}`
+        );
+        return;
+      }
+
+      // Sucesso
+      setForm({
+        dataRegistro: "",
+        valorLocacaoImovel: "",
+        valorAssessoriaJuridica: "",
+        valorAssessoriaComunicacao: "",
+        valorCombustivel: "",
+        despesasDebito: "",
+        despesasCredito: "",
+        outrasDespesas: "",
+      });
+      alert("✅ Registro financeiro cadastrado com sucesso!");
+      router.push("/financeiro");
+    } catch (err: any) {
+      console.error(err);
+      alert(`❌ Erro inesperado: ${err?.message ?? err}`);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className={dash.shell}>
@@ -279,7 +285,11 @@ export default function NovoRegistroFinanceiro() {
             </div>
 
             <div className={styles.buttons}>
-              <button type="submit" className={styles.saveButton} disabled={loading}>
+              <button
+                type="submit"
+                className={styles.saveButton}
+                disabled={loading}
+              >
                 {loading ? "Salvando..." : "Salvar Informações"}
               </button>
               <button
