@@ -6,8 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="19d0533e-f35a-4ede-864f-525e65f89f53" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/app/acoes/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/acoes/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/app/gestaoDeTarefas/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/gestaoDeTarefas/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/security/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/target/classes/com/sedem/api/security/SecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/financeiro/novoRegistro/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/financeiro/novoRegistro/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +45,7 @@
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;Spring Boot.ApiApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;lucasgravata&quot;,
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -88,8 +89,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.25410.129" />
-        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-IU-251.25410.129" />
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26830.84" />
       </set>
     </attachedChunks>
   </component>

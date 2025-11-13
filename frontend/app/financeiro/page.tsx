@@ -4,17 +4,97 @@ import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import dash from "../dashboard/dashboard.module.css";
 import styles from "./financeiro.module.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ChatWidget } from "../components/ChatWidget";
+
+type RegistroUI = {
+  data?: string | null;
+  locacao: number;
+  juridica: number;
+  comunicacao: number;
+  combustivel: number;
+  debito: number;
+  credito: number;
+  outros: number;
+  total: number;
+};
+
+const toNum = (v: any) => {
+  const n = Number(v ?? 0);
+  return Number.isFinite(n) ? n : 0;
+};
+
+const brl = (n: number) =>
+  toNum(n).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+
+const fmtData = (d?: string | null) => {
+  if (!d) return "—";
+  // tenta ISO; se falhar, mostra como string mesmo
+  const t = Date.parse(d);
+  return isNaN(t) ? d : new Date(t).toLocaleDateString("pt-BR");
+};
+
+// converte cada item do backend para o shape UI acima
+const normalize = (it: any): RegistroUI => {
+  const locacao      = toNum(it.valorLocacaoImovel ?? it.locacao);
+  const juridica     = toNum(it.valorAssessoriaJuridica ?? it.juridica);
+  const comunicacao  = toNum(it.valorAssessoriaComunicacao ?? it.comunicacao);
+  const combustivel  = toNum(it.valorCombustivel ?? it.combustivel);
+  const debito       = toNum(it.despesasDebito ?? it.debito);
+  const credito      = toNum(it.despesasCredito ?? it.credito);
+  const outros       = toNum(it.outrasDespesas ?? it.outros);
+
+  const total = toNum(
+    it.total ??
+    locacao + juridica + comunicacao + combustivel + debito + credito + outros
+  );
+
+  const data =
+    it.data ?? it.dataRegistro ?? it.criadoEm ?? it.createdAt ?? null;
+
+  return { data, locacao, juridica, comunicacao, combustivel, debito, credito, outros, total };
+};
+
 
 export default function FinanceiroPage() {
   const router = useRouter();
   const pathname = usePathname();
 
+  const [registros, setRegistros] = useState<RegistroUI[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) router.push("/login");
   }, [router]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const base = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8082";
+        const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+
+        const headers: Record<string, string> = { "Content-Type": "application/json" };
+        if (token) headers.Authorization = `Bearer ${token}`;
+
+        let res = await fetch(`${base}/registros-financeiros`, { headers });
+        if (res.status === 404) res = await fetch(`${base}/financeiro/registros`, { headers });
+        if (res.status === 404) res = await fetch(`${base}/registrosFinanceiros`, { headers });
+
+        if (!res.ok) throw new Error(`GET registros -> ${res.status}`);
+        const json = await res.json();
+        const raw = Array.isArray(json) ? json : (json?.content ?? []);
+        setRegistros(raw.map(normalize));
+      } catch (e: any) {
+        setError(e.message ?? "Erro ao carregar registros");
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
+
 
   const menuItems = [
     { name: "Dashboard", path: "/dashboard" },
@@ -23,31 +103,6 @@ export default function FinanceiroPage() {
     { name: "Financeiro", path: "/financeiro" },
     { name: "Eleições 2026", path: "/eleicao" },
     { name: "Configurações", path: "/configuracoes" },
-  ];
-
-  const registros = [
-    {
-      data: "02/07/2025",
-      locacao: 40000,
-      juridica: 20000,
-      comunicacao: 3000,
-      combustivel: 2000,
-      debito: 0,
-      credito: 0,
-      outros: 0,
-      total: 65000,
-    },
-    {
-      data: "01/07/2025",
-      locacao: 3000,
-      juridica: 3000,
-      comunicacao: 4000,
-      combustivel: 2000,
-      debito: 1000,
-      credito: 0,
-      outros: 0,
-      total: 13000,
-    },
   ];
 
   return (
@@ -122,17 +177,15 @@ export default function FinanceiroPage() {
                   <tbody>
                     {registros.map((r, i) => (
                       <tr key={i}>
-                        <td>{r.data}</td>
-                        <td>R$ {r.locacao.toLocaleString()}</td>
-                        <td>R$ {r.juridica.toLocaleString()}</td>
-                        <td>R$ {r.comunicacao.toLocaleString()}</td>
-                        <td>R$ {r.combustivel.toLocaleString()}</td>
-                        <td>R$ {r.debito.toLocaleString()}</td>
-                        <td>R$ {r.credito.toLocaleString()}</td>
-                        <td>R$ {r.outros.toLocaleString()}</td>
-                        <td className={styles.total}>
-                          R$ {r.total.toLocaleString()}
-                        </td>
+                        <td>{fmtData(r.data)}</td>
+                        <td>{brl(r.locacao)}</td>
+                        <td>{brl(r.juridica)}</td>
+                        <td>{brl(r.comunicacao)}</td>
+                        <td>{brl(r.combustivel)}</td>
+                        <td>{brl(r.debito)}</td>
+                        <td>{brl(r.credito)}</td>
+                        <td>{brl(r.outros)}</td>
+                        <td className={styles.total}>{brl(r.total)}</td>
                       </tr>
                     ))}
                   </tbody>
