@@ -1,18 +1,13 @@
-/* app/eleicao/chat.module.css */
-
 .chatContainer {
-  /* Este container não faz nada visualmente, 
-     mas é útil se você quiser agrupar o chat */
 }
 
-/* O Botão Flutuante (FAB) no canto */
 .chatToggleButton {
   position: fixed;
   bottom: 20px;
   right: 20px;
   width: 60px;
   height: 60px;
-  background-color: #3a4b8b; /* Cor principal (azul escuro do header) */
+  background-color: #3a4b8b;
   color: white;
   border: none;
   border-radius: 50%;
@@ -29,26 +24,24 @@
   transform: scale(1.1);
 }
 
-/* A Janela do Chat */
 .chatWindow {
   position: fixed;
-  bottom: 90px; /* Acima do botão */
+  bottom: 90px;
   right: 20px;
   width: 350px;
   max-width: 90vw;
   height: 450px;
-  background-color: #f0f0f0; /* Fundo cinza claro da imagem */
+  background-color: #f0f0f0;
   border-radius: 12px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
-  overflow: hidden; /* Para forçar os cantos arredondados */
+  overflow: hidden;
   z-index: 1000;
 }
 
-/* Cabeçalho da Janela */
 .chatHeader {
-  background-color: #3a4b8b; /* Azul escuro da imagem */
+  background-color: #3a4b8b;
   color: white;
   padding: 1rem;
   font-weight: 600;
@@ -71,27 +64,50 @@
   cursor: pointer;
 }
 
-/* Corpo (onde as mensagens ficam) */
 .chatBody {
   flex-grow: 1;
   padding: 1rem;
-  overflow-y: auto; /* Adiciona scroll se as mensagens passarem da altura */
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.8rem;
 }
 
 .botMessage {
-  background-color: #0000ff; /* Azul brilhante da imagem */
+  background-color: #0000ff;
   color: white;
   padding: 0.75rem 1rem;
-  border-radius: 12px;
-  max-width: 80%;
+  border-radius: 12px 12px 12px 0;
+  max-width: 85%;
   align-self: flex-start;
-  word-wrap: break-word; /* Quebra de linha */
+  word-wrap: break-word;
+  font-size: 0.9rem;
+  line-height: 1.4;
 }
 
-/* Área de Input (embaixo) */
+.userMessage {
+  background-color: #e5e7eb;
+  color: #1f2937;
+  padding: 0.75rem 1rem;
+  border-radius: 12px 12px 0 12px;
+  max-width: 85%;
+  align-self: flex-end;
+  word-wrap: break-word;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  border: 1px solid #d1d5db;
+}
+
+.loadingMessage {
+  align-self: flex-start;
+  color: #6b7280;
+  font-size: 0.8rem;
+  font-style: italic;
+  margin-left: 0.5rem;
+}
+
+/* --- INPUT --- */
+
 .chatInputArea {
   display: flex;
   padding: 1rem;
@@ -108,7 +124,7 @@
 }
 
 .sendButton {
-  background-color: #3a4b8b; /* Azul escuro */
+  background-color: #3a4b8b;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -119,4 +135,10 @@
 
 .sendButton:hover {
   opacity: 0.9;
+}
+
+.sendButton:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+  opacity: 0.7;
 }

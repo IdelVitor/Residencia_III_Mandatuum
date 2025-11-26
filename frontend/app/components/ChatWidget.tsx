@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import chat from "./chat.module.css"; 
+import chat from "./chat.module.css";
 
 const IconBot = () => (
   <svg
@@ -18,8 +18,76 @@ const IconBot = () => (
   </svg>
 );
 
+type Message = {
+  id: number;
+  type: "bot" | "user";
+  text: string;
+};
+
 export function ChatWidget() {
   const [isChatOpen, setIsChatOpen] = useState(false);
+
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      id: 1,
+      type: "bot",
+      text: "Olá! Sou o assistente do SEDEM. Como posso ajudar com os dados financeiros hoje?",
+    },
+  ]);
+
+  const [inputValue, setInputValue] = useState("");
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSend = async () => {
+    if (!inputValue.trim()) return;
+
+    const userMsg: Message = { id: Date.now(), type: "user", text: inputValue };
+    setMessages((prev) => [...prev, userMsg]);
+    setInputValue("");
+    setIsLoading(true);
+
+    try {
+      const base = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8082";
+      const token = localStorage.getItem("token");
+
+      const res = await fetch(`${base}/chat`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+        body: JSON.stringify({ pergunta: userMsg.text }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Erro na comunicação com a IA");
+      }
+
+      const data = await res.json();
+
+      const botMsg: Message = {
+        id: Date.now() + 1,
+        type: "bot",
+        text: data.resposta,
+      };
+      setMessages((prev) => [...prev, botMsg]);
+    } catch (error) {
+      console.error(error);
+      const errorMsg: Message = {
+        id: Date.now() + 1,
+        type: "bot",
+        text: "Desculpe, ocorreu um erro ao processar sua pergunta.",
+      };
+      setMessages((prev) => [...prev, errorMsg]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") handleSend();
+  };
 
   return (
     <div className={chat.chatContainer}>
@@ -27,7 +95,7 @@ export function ChatWidget() {
         <div className={chat.chatWindow}>
           <div className={chat.chatHeader}>
             <IconBot />
-            <span>Assistente</span>
+            <span>Assistente IA</span>
             <button
               className={chat.closeButton}
               onClick={() => setIsChatOpen(false)}
@@ -37,19 +105,38 @@ export function ChatWidget() {
           </div>
 
           <div className={chat.chatBody}>
-            <div className={chat.botMessage}>
-              Boa tarde! Sou seu assistente. Posso tirar dúvidas e mostrar
-              links e site.
-            </div>
+            {messages.map((msg) => (
+              <div
+                key={msg.id}
+                className={
+                  msg.type === "bot" ? chat.botMessage : chat.userMessage
+                }
+              >
+                {msg.text}
+              </div>
+            ))}
+            {isLoading && (
+              <div className={chat.loadingMessage}>Digitando...</div>
+            )}
           </div>
 
           <div className={chat.chatInputArea}>
             <input
               type="text"
-              placeholder="Pergunte algo..."
+              placeholder="Pergunte sobre o financeiro..."
               className={chat.chatInput}
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              onKeyDown={handleKeyPress}
+              disabled={isLoading}
             />
-            <button className={chat.sendButton}>Enviar</button>
+            <button
+              className={chat.sendButton}
+              onClick={handleSend}
+              disabled={isLoading}
+            >
+              {isLoading ? "..." : "Enviar"}
+            </button>
           </div>
         </div>
       )}
