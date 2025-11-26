@@ -23,13 +23,18 @@ public class ChatService {
     }
 
     public String responderPergunta(String perguntaUsuario) {
-
+        // ---------------------------------------------------------
+        // 1. Contexto (Busca dados do banco)
+        // ---------------------------------------------------------
         var registros = financeiroService.listar();
 
         String dadosContexto = registros.stream()
                 .map(r -> String.format("- Data: %s | Total: R$ %s | Tipo: Financeiro", r.dataRegistro(), r.total()))
                 .collect(Collectors.joining("\n"));
 
+        // ---------------------------------------------------------
+        // 2. Prompt (Instrução para a IA)
+        // ---------------------------------------------------------
         String prompt = String.format("""
                 Você é um assistente financeiro do sistema SEDEM.
                 Analise os dados abaixo para responder à pergunta do usuário.
@@ -43,6 +48,9 @@ public class ChatService {
                 Responda de forma resumida e direta.
                 """, dadosContexto, perguntaUsuario);
 
+        // ---------------------------------------------------------
+        // 3. Montar o JSON (Igual ao do Google AI Studio)
+        // ---------------------------------------------------------
         Map<String, Object> requestBody = Map.of(
                 "contents", List.of(
                         Map.of("parts", List.of(
@@ -51,29 +59,36 @@ public class ChatService {
                 )
         );
 
-        // 4. Fazer a chamada REST "na mão" para o Google
-        String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + apiKey;
+        // ---------------------------------------------------------
+        // 4. Configuração da URL e Chamada (Baseado no seu CURL)
+        // ---------------------------------------------------------
+
+        String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
 
         try {
-            // Enviando...
+            System.out.println("Enviando requisição para Gemini 2.0...");
+
             Map response = restClient.post()
                     .uri(url)
+                    // MUDANÇA 2: Enviando a chave no Header (X-goog-api-key), igual ao curl
+                    .header("X-goog-api-key", apiKey.trim())
+                    .header("Content-Type", "application/json")
                     .body(requestBody)
                     .retrieve()
                     .body(Map.class);
 
-            // 5. Ler a resposta do JSON bagunçado do Google
-            // O Google retorna: candidates[0].content.parts[0].text
+            // ---------------------------------------------------------
+            // 5. Ler a resposta
+            // ---------------------------------------------------------
             List<Map<String, Object>> candidates = (List<Map<String, Object>>) response.get("candidates");
             Map<String, Object> content = (Map<String, Object>) candidates.get(0).get("content");
             List<Map<String, Object>> parts = (List<Map<String, Object>>) content.get("parts");
-            String textoResposta = (String) parts.get(0).get("text");
 
-            return textoResposta;
+            return (String) parts.get(0).get("text");
 
         } catch (Exception e) {
             e.printStackTrace();
-            return "Erro ao consultar a IA: " + e.getMessage();
+            return "Erro ao consultar o Gemini: " + e.getMessage();
         }
     }
 }
