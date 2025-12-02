@@ -1,3 +1,11 @@
+/* ============================== Variáveis ============================== */
+
+:root {
+  --atrasadas: #f87171;   /* Vermelho */
+  --concluidas: #4f46e5;  /* Azul */
+  --pendentes: #fbbf24;   /* Amarelo */
+}
+
 /* ============================== Layout Global ============================== */
 .dashboardLayout {
   display: flex;
@@ -92,7 +100,7 @@
 
 /* Conteúdo principal */
 .main {
-  margin-left: 250px; /* Espaço da sidebar */
+  margin-left: 250px;
   flex: 1;
   height: 100vh;
   overflow-y: auto;
@@ -139,12 +147,24 @@
   margin-bottom: 1rem;
 }
 
-.statChart {
-  height: 150px;
-  background-color: #f0f0f0;
-  border-radius: 8px;
+.pieLegend {
   display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
   justify-content: center;
+}
+
+.pieLegendItem {
+  display: flex;
   align-items: center;
-  color: #6b7280;
+  font-size: 0.9rem;
+  color: var(--color-text);
+  gap: 0.4rem;
+}
+
+.pieLegendColor {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  display: inline-block;
 }

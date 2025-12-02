@@ -1,5 +1,7 @@
 package com.sedem.api.services;
 
+import com.sedem.api.dto.ChartDataDTO;    // <--- NOVO IMPORT
+import com.sedem.api.dto.DashboardDTO;   // <--- NOVO IMPORT
 import com.sedem.api.models.StatusTarefa;
 import com.sedem.api.models.Tarefa;
 import com.sedem.api.dto.TarefaListDTO;
@@ -15,6 +17,8 @@ public class TarefaService {
 
     @Autowired
     private TarefaRepository tarefaRepository;
+
+    // ... seus métodos existentes ...
 
     public Tarefa create(Tarefa tarefa) {
         return tarefaRepository.save(tarefa);
@@ -55,4 +59,15 @@ public class TarefaService {
     public void delete(Long id) {
         tarefaRepository.deleteById(id);
     }
+
+    // --- NOVO MÉTODO PARA O DASHBOARD ---
+    public DashboardDTO getDashboardMetrics() {
+        // Pega as listas de DTOs já formatadas pelo Repository (Passo 2)
+        List<ChartDataDTO> statusData = tarefaRepository.countTotalByStatus();
+        List<ChartDataDTO> responsibleData = tarefaRepository.countTotalByResponsible();
+
+        // Agrupa e retorna o objeto completo que o Frontend espera
+        return new DashboardDTO(statusData, responsibleData);
+    }
+    // ----------------------------------
 }
