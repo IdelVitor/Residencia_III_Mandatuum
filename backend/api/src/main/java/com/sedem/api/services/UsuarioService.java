@@ -35,13 +35,13 @@ public class UsuarioService {
         return usuarioRepository.findById(id);
     }
 
-    // Atualizar usuário
+    // Atualizar usuário (Update genérico)
     public Usuario update(Long id, Usuario usuarioAtualizado) {
         return usuarioRepository.findById(id).map(usuario -> {
             usuario.setNome(usuarioAtualizado.getNome());
             usuario.setEmail(usuarioAtualizado.getEmail());
 
-            // 🔑 só encoda se vier uma nova senha
+            // 🔑 só encoda se vier uma nova senha no update geral (Cuidado: aqui não valida a antiga)
             if (usuarioAtualizado.getSenhaHash() != null && !usuarioAtualizado.getSenhaHash().isEmpty()) {
                 usuario.setSenhaHash(passwordEncoder.encode(usuarioAtualizado.getSenhaHash()));
             }
@@ -49,6 +49,21 @@ public class UsuarioService {
             usuario.setRole(usuarioAtualizado.getRole());
             return usuarioRepository.save(usuario);
         }).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+    }
+
+    // --- NOVO MÉTODO: Alterar Senha com Validação ---
+    public void alterarSenha(Long id, String senhaAtual, String novaSenha) {
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        // Verifica se a senha atual informada bate com o hash no banco
+        if (!passwordEncoder.matches(senhaAtual, usuario.getSenhaHash())) {
+            throw new RuntimeException("A senha atual está incorreta.");
+        }
+
+        // Se estiver correta, criptografa a nova e salva
+        usuario.setSenhaHash(passwordEncoder.encode(novaSenha));
+        usuarioRepository.save(usuario);
     }
 
     // Remover usuário

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import styles from "./cadastroUsuario.module.css";
+import styles from "./cadastroAlterar.module.css";
 
 export default function CadastroUsuario() {
   const [showPassword, setShowPassword] = useState(false);
