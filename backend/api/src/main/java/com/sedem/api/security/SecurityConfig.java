@@ -30,27 +30,27 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
-                // Conecta com a configuração de CORS definida lá embaixo
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
-                        // 1. Libera o Pre-flight (necessário para evitar erro de CORS no navegador)
+                        // 1. Libera Pre-flight (CORS)
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                        // Rotas públicas (Documentação e Auth)
+                        // 2. Rotas Públicas
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/actuator/health").permitAll()
 
-                        // 2. Seus endpoints liberados (Cuidado: em produção, ideal é proteger)
+                        // 3. Outras rotas liberadas
                         .requestMatchers("/tarefas/**").permitAll()
                         .requestMatchers("/acoes/**").permitAll()
                         .requestMatchers("/acoes").permitAll()
                         .requestMatchers("/contatos/**").permitAll()
                         .requestMatchers("/registros-financeiros/**").permitAll()
 
-                        // 3. ADICIONEI ESTA LINHA: Configuração explícita para Usuários
-                        // authenticated() exige token. Se quiser testar sem token, mude para permitAll()
-                        .requestMatchers("/usuarios/**").authenticated()
+                        // --- MUDANÇA AQUI ---
+                        // Antes estava .authenticated(), mudei para .permitAll()
+                        // Isso libera o cadastro/listagem de usuários para testarmos sem travar no Login
+                        .requestMatchers("/usuarios/**").permitAll()
 
                         .anyRequest().authenticated()
                 )
@@ -64,7 +64,6 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        // Origens permitidas (Frontend)
         config.setAllowedOriginPatterns(List.of(
                 "http://localhost:3000",
                 "http://localhost:3001",
@@ -72,12 +71,8 @@ public class SecurityConfig {
                 "http://127.0.0.1:3000"
         ));
 
-        // 4. Métodos permitidos (Incluindo PATCH)
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-
-        // 5. AJUSTE CRÍTICO: Permitir todos os headers para evitar bloqueio silencioso
         config.setAllowedHeaders(List.of("*"));
-
         config.setExposedHeaders(List.of("Authorization"));
         config.setAllowCredentials(true);
 

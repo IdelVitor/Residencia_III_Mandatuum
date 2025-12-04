@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="19d0533e-f35a-4ede-864f-525e65f89f53" name="Changes" comment="" />
+    <list default="true" id="19d0533e-f35a-4ede-864f-525e65f89f53" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/models/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/models/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/src/main/java/com/sedem/api/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/configuracoes/components/AdministracaoUsuarios.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/configuracoes/components/AdministracaoUsuarios.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/configuracoes/components/CadastroUsuario.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/configuracoes/components/CadastroUsuario.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -114,7 +120,7 @@
       <workItem from="1764265006950" duration="546000" />
       <workItem from="1764265829751" duration="7778000" />
       <workItem from="1764852952767" duration="853000" />
-      <workItem from="1764854090201" duration="3594000" />
+      <workItem from="1764854090201" duration="5844000" />
     </task>
     <servers />
   </component>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-// Importando o CSS original para manter o estilo do quadrado branco
+// Importando o CSS que você definiu
 import styles from "./cadastroAlterar.module.css"; 
 
 export default function CadastroUsuario() {
@@ -23,8 +23,8 @@ export default function CadastroUsuario() {
   const getRoleEnum = (valorVisual: string) => {
     switch (valorVisual) {
       case "Administrador": return "ADMIN";
-      case "Master": return "MANAGER"; // Mapeado para MANAGER conforme seu arquivo Role.java
-      default: return "USER"; // "Usuário Comum"
+      case "Master": return "MANAGER"; 
+      default: return "USER"; 
     }
   };
 
@@ -47,14 +47,18 @@ export default function CadastroUsuario() {
       setLoading(true);
       const token = localStorage.getItem('token');
       
+      // LOG DE DIAGNÓSTICO (Para você ver no F12 se o token está indo)
+      console.log("Token sendo enviado:", token);
+
       // 2. Montagem do Objeto (Payload)
-      // O Java espera: { nome, email, senhaHash, role }
       const payload = {
         nome: `${nome.trim()} ${sobrenome.trim()}`, // Junta Nome + Sobrenome
         email: email,
-        senhaHash: senha, // O campo no Java é 'senhaHash'
+        senhaHash: senha, // Campo correto conforme seu Java
         role: getRoleEnum(roleVisual)
       };
+
+      console.log("Payload enviado:", payload);
 
       // 3. Envio para a API (Porta 8082)
       const response = await fetch('http://localhost:8082/usuarios', {
@@ -66,6 +70,8 @@ export default function CadastroUsuario() {
         body: JSON.stringify(payload)
       });
 
+      console.log("Status da resposta:", response.status);
+
       if (response.ok) {
         setMensagem({ tipo: 'sucesso', texto: 'Usuário cadastrado com sucesso!' });
         // Limpar campos
@@ -76,19 +82,20 @@ export default function CadastroUsuario() {
         setConfirmarSenha("");
         setRoleVisual("Usuário Comum");
       } else {
-        // Tenta pegar mensagem de erro do backend
-        let erroTexto = 'Erro ao processar cadastro.';
-        try {
-            const text = await response.text();
-            if(text) erroTexto = text;
-        } catch {}
+        // --- PARTE IMPORTANTE: Captura o erro exato do backend ---
+        const erroTexto = await response.text();
+        console.error("Erro detalhado do backend:", erroTexto);
         
-        setMensagem({ tipo: 'erro', texto: erroTexto });
+        // MOSTRA UM ALERTA NA TELA COM O ERRO EXATO
+        alert(`Erro ${response.status}: ${erroTexto}`);
+        
+        setMensagem({ tipo: 'erro', texto: erroTexto || `Erro ${response.status} ao cadastrar.` });
       }
 
     } catch (error) {
       console.error(error);
-      setMensagem({ tipo: 'erro', texto: 'Erro de conexão. Verifique se o Backend está rodando na porta 8082.' });
+      alert("Erro de Conexão: Verifique se o Backend está rodando na porta 8082.");
+      setMensagem({ tipo: 'erro', texto: 'Erro de conexão com o servidor.' });
     } finally {
       setLoading(false);
     }
@@ -99,7 +106,7 @@ export default function CadastroUsuario() {
       <form className={styles.card} onSubmit={handleCadastro}>
         <h2 className={styles.cardTitle}>Cadastro de Usuário</h2>
 
-        {/* Mensagens de Feedback (Sucesso/Erro) */}
+        {/* Mensagens de Feedback */}
         {mensagem.texto && (
           <div style={{ 
             padding: '12px', 
